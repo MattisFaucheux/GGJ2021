@@ -1,11 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class RadarPing : MonoBehaviour
 {
-
     private SpriteRenderer spriteRenderer;
     private float disappearTimer = 0;
     private float disappearTimerMax = 1;

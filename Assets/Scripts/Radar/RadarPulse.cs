@@ -81,5 +81,4 @@ public class RadarPulse : MonoBehaviour
 
         this.isActivate = isActivated;
     }
-
 }

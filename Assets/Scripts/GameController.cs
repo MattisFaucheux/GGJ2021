@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
-
 public class GameController : MonoBehaviour
 {
-
     public bool isInputActivate = true;
 
     #region Speed
-    [Header("Speed Settings")] 
+    [Header("Speed Settings")]
     [SerializeField]
     [Tooltip("Speed in Unit/Sec")]
     private float m_maxSpeed = 30;
@@ -32,7 +29,7 @@ public class GameController : MonoBehaviour
     [Tooltip("Speed in Unit/Sec")]
     private float m_minRSpeed = -10, m_rAcceleration = 2, m_rDeceleration = 2, m_rInputAcceleration = 2, m_rInputDeceleration = 2;
 
-    [SerializeField] 
+    [SerializeField]
     private float m_maxZRotation = 60, m_minZRotation = -60;
 
     private float m_rotateSpeed;

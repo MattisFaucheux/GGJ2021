@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
                 isUsingSubMarine = false;
                 SpawnPlayer();
             }
-            else if(Vector3.Distance(submarine.transform.position, playerObject.transform.position) < distanceToEnterInSubmarine)
+            else if (Vector3.Distance(submarine.transform.position, playerObject.transform.position) < distanceToEnterInSubmarine)
             {
                 isUsingSubMarine = true;
                 DispawnPlayer();
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     {
         submarineController.SetIsInputActivate(false);
 
-        playerObject = Instantiate(playerPrefab, submarine.transform.position + new Vector3(0, submarine.transform.localScale.y/2 + 1, 0), new Quaternion(0, 0, 0, 0));
+        playerObject = Instantiate(playerPrefab, submarine.transform.position + new Vector3(0, submarine.transform.localScale.y / 2 + 1, 0), new Quaternion(0, 0, 0, 0));
         playerObjectController = playerObject.GetComponent<GameController>();
 
         if (playerObjectController)
