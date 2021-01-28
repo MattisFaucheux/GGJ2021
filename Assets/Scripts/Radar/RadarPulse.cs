@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class RadarPulse : MonoBehaviour
 {
-    [SerializeField] 
+    #region Radar Ping
+    [Header("Radar Ping Prefab")]
+    [SerializeField]
     private Transform pfRadarPing;
+
+    private List<Collider> alreadyPingedColliderList;
+    #endregion
+
+    #region Radar Settings
+    [Header("Radar Settings")]
+    public float rangeMax = 300;
+    public float rangeSpeed = 20;
+    public LayerMask layerToDetect;
 
     private Transform pulseTransform;
     private float range;
-
-    public float rangeMax = 300;
-    public float rangeSpeed = 20;
-
-    public LayerMask layerToDetect;
-
-    private List<Collider> alreadyPingedColliderList;
+    #endregion
 
     private void Awake()
     {
@@ -25,15 +30,24 @@ public class RadarPulse : MonoBehaviour
 
     private void Update()
     {
+        UpdatePulse();
+        UpdateRadarDetection();
+    }
+
+    void UpdatePulse()
+    {
         range += rangeSpeed * Time.deltaTime;
         if (range > rangeMax)
         {
             range = 0;
             alreadyPingedColliderList.Clear();
         }
-        pulseTransform.localScale = new Vector3(range/2, range/2);
+        pulseTransform.localScale = new Vector3(range / 2, range / 2);
+    }
 
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position - (transform.up * range), range, transform.up, 10 * range, layerToDetect);
+    void UpdateRadarDetection()
+    {
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position - (transform.forward * range), range, transform.forward, 10 * range, layerToDetect);
         if (hits.Length > 0)
         {
             foreach (var hit in hits)
@@ -41,7 +55,7 @@ public class RadarPulse : MonoBehaviour
                 if (!alreadyPingedColliderList.Contains(hit.collider))
                 {
                     alreadyPingedColliderList.Add(hit.collider);
-                    Transform radarPingTransform = Instantiate(pfRadarPing, new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -1), Quaternion.identity);
+                    Transform radarPingTransform = Instantiate(pfRadarPing, new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, hit.collider.transform.position.z - (hit.collider.transform.localScale.z / 2) - 1), Quaternion.identity);
                     RadarPing radarPing = radarPingTransform.GetComponent<RadarPing>();
                     if (radarPing)
                     {
