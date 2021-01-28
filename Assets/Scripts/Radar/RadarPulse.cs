@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RadarPulse : MonoBehaviour
 {
+    public bool isActivate = true;
+
     #region Radar Ping
     [Header("Radar Ping Prefab")]
     [SerializeField]
@@ -30,8 +32,11 @@ public class RadarPulse : MonoBehaviour
 
     private void Update()
     {
-        UpdatePulse();
-        UpdateRadarDetection();
+        if (isActivate)
+        {
+            UpdatePulse();
+            UpdateRadarDetection();
+        }
     }
 
     void UpdatePulse()
@@ -64,6 +69,17 @@ public class RadarPulse : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SetIsActivate(bool isActivated)
+    {
+        if (!isActivated)
+        {
+            range = rangeMax;
+            UpdatePulse();
+        }
+
+        this.isActivate = isActivated;
     }
 
 }

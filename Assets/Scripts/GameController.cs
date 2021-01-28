@@ -7,8 +7,9 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
-    #region Speed
+    public bool isInputActivate = true;
 
+    #region Speed
     [Header("Speed Settings")] 
     [SerializeField]
     [Tooltip("Speed in Unit/Sec")]
@@ -43,8 +44,17 @@ public class GameController : MonoBehaviour
     private CharacterController m_controller;
     #endregion
 
+
+    private RadarPulse radarPulse;
+
     void Start()
     {
+        radarPulse = transform.GetComponentInChildren<RadarPulse>();
+        if (radarPulse)
+        {
+            radarPulse.SetIsActivate(isInputActivate);
+        }
+
         m_controller = GetComponent<CharacterController>();
     }
     void Update()
@@ -57,7 +67,7 @@ public class GameController : MonoBehaviour
 
     void ChangeSpeed()
     {
-        if ((Input.GetAxis("Horizontal") > 0))
+        if (Input.GetAxis("Horizontal") > 0 && isInputActivate)
         {
 
             if (m_actualSpeed >= m_maxSpeed)
@@ -69,7 +79,7 @@ public class GameController : MonoBehaviour
                 m_actualSpeed += m_inputAcceleration * Time.deltaTime;
             }
         }
-        else if ((Input.GetAxis("Horizontal") < 0 && m_actualSpeed > m_minSpeed))
+        else if (Input.GetAxis("Horizontal") < 0 && m_actualSpeed > m_minSpeed && isInputActivate)
         {
             m_actualSpeed -= m_inputDeceleration * Time.deltaTime;
         }
@@ -116,7 +126,7 @@ public class GameController : MonoBehaviour
                 transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 360 + m_minZRotation + 0.1f);
             }
         }
-        else if (Input.GetAxis("Vertical") > 0)
+        else if (Input.GetAxis("Vertical") > 0 && isInputActivate)
         {
             if (m_rotateSpeed >= m_maxRSpeed)
             {
@@ -127,7 +137,7 @@ public class GameController : MonoBehaviour
                 m_rotateSpeed += m_rInputAcceleration * Time.deltaTime;
             }
         }
-        else if (Input.GetAxis("Vertical") < 0 && m_rotateSpeed > m_minRSpeed)
+        else if (Input.GetAxis("Vertical") < 0 && m_rotateSpeed > m_minRSpeed && isInputActivate)
         {
             m_rotateSpeed -= m_rInputDeceleration * Time.deltaTime;
         }
@@ -150,5 +160,14 @@ public class GameController : MonoBehaviour
         }
 
         transform.RotateAround(transform.position, new Vector3(0, 0, 1), m_rotateSpeed * Time.deltaTime);
+    }
+
+    public void SetIsInputActivate(bool isActivate)
+    {
+        this.isInputActivate = isActivate;
+        if (radarPulse)
+        {
+            radarPulse.SetIsActivate(isInputActivate);
+        }
     }
 }
