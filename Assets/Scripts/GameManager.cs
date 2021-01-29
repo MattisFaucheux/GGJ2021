@@ -10,28 +10,45 @@ public class GameManager : MonoBehaviour
     public GameObject submarine;
     private GameController submarineController;
 
+    private Transform submarineInterior;
+
     public GameObject playerPrefab;
     private GameObject playerObject;
     private GameController playerObjectController;
 
     public float distanceToEnterInSubmarine = 3.0f;
 
-    private bool isUsingSubMarine = true;
+    //private bool isUsingSubMarine = true;
 
+    enum PlayerState
+    {
+        SUBMARINE,
+        POD,
+        INTERIOR
+    }
+
+    private PlayerState pState = PlayerState.SUBMARINE;
 
     // Start is called before the first frame update
     void Start()
     {
+        submarineInterior = submarine.transform.Find("Interior");
+
+
         initialCameraPos = Camera.transform.position;
         submarineController = submarine.GetComponent<GameController>();
 
-        if (isUsingSubMarine && submarineController)
+        if (submarineController)
         {
-            submarineController.SetIsInputActivate(isUsingSubMarine);
+            submarineController.SetIsInputActivate(pState == PlayerState.SUBMARINE);
         }
-        else
+        else if (submarineInterior)
         {
-            SpawnPlayer();
+            submarineInterior.gameObject.SetActive(pState == PlayerState.INTERIOR);
+        }
+        else if(pState == PlayerState.POD)
+        {
+            SpawnPod();
         }
     }
 
@@ -44,25 +61,41 @@ public class GameManager : MonoBehaviour
 
     void CheckChangeController()
     {
-        if (Input.GetButtonDown("Switch"))
+        if (Input.GetButtonDown("SwitchInterior") && submarineInterior)
         {
-            if (isUsingSubMarine)
+            if (submarineInterior.gameObject.activeInHierarchy && pState == PlayerState.INTERIOR)
             {
-                isUsingSubMarine = false;
-                SpawnPlayer();
+                submarineInterior.gameObject.SetActive(false);
+                pState = PlayerState.SUBMARINE;
+                submarineController.SetIsInputActivate(true);
             }
-            else if (Vector3.Distance(submarine.transform.position, playerObject.transform.position) < distanceToEnterInSubmarine)
+            else if(pState == PlayerState.SUBMARINE)
             {
-                isUsingSubMarine = true;
+                submarineInterior.gameObject.SetActive(true);
+                pState = PlayerState.INTERIOR;
+                submarineController.SetIsInputActivate(false);
+            }
+        }
+
+        if (Input.GetButtonDown("SwitchExterior"))
+        {
+            if (pState == PlayerState.SUBMARINE)
+            {
+                pState = PlayerState.POD;
+                SpawnPod();
+                submarineController.SetIsInputActivate(false);
+            }
+            else if (playerObject && Vector3.Distance(submarine.transform.position, playerObject.transform.position) < distanceToEnterInSubmarine && pState == PlayerState.POD)
+            {
+                pState = PlayerState.SUBMARINE;
                 DispawnPlayer();
+                submarineController.SetIsInputActivate(true);
             }
         }
     }
 
-    void SpawnPlayer()
+    void SpawnPod()
     {
-        submarineController.SetIsInputActivate(false);
-
         playerObject = Instantiate(playerPrefab, submarine.transform.position + new Vector3(0, submarine.transform.localScale.y / 2 + 1, 0), new Quaternion(0, 0, 0, 0));
         playerObjectController = playerObject.GetComponent<GameController>();
 
@@ -74,8 +107,6 @@ public class GameManager : MonoBehaviour
 
     void DispawnPlayer()
     {
-        submarineController.SetIsInputActivate(true);
-
         DestroyImmediate(playerObject);
         playerObject = null;
         playerObjectController = null;
@@ -83,7 +114,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateCameraPosition()
     {
-        if (isUsingSubMarine)
+        if (pState != PlayerState.POD)
         {
             Camera.transform.position = submarine.transform.position + initialCameraPos;
         }

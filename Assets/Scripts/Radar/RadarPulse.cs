@@ -112,7 +112,6 @@ public class RadarPulse : MonoBehaviour
             startPosition = transform.position;
             isActivate = true;
             canActivate = false;
-            Debug.Log("Chech");
             StartCoroutine(ResetCanActivate());
         }
     }
@@ -122,8 +121,5 @@ public class RadarPulse : MonoBehaviour
         Debug.Log(reloadTime);
         yield return new WaitForSeconds(reloadTime);
         canActivate = true;
-        Debug.Log("ok");
     }
-
-
 }
