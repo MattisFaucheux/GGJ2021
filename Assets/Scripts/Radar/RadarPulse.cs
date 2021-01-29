@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RadarPulse : MonoBehaviour
 {
-    public bool isActivate = true;
+    private bool isActivate = false;
 
     #region Radar Ping
     [Header("Radar Ping Prefab")]
@@ -20,14 +20,25 @@ public class RadarPulse : MonoBehaviour
     public float rangeSpeed = 20;
     public LayerMask layerToDetect;
 
-    private Transform pulseTransform;
+    public GameObject pulsePrefab;
     private float range;
+    private GameObject pulseObject;
+
+    private Vector3 startPosition;
+
+    public float reloadTime = 5.0f;
+    private bool canActivate = true;
     #endregion
 
     private void Awake()
     {
-        pulseTransform = transform.Find("Pulse");
         alreadyPingedColliderList = new List<Collider>();
+    }
+
+    void Start()
+    {
+        isActivate = false;
+        ResetPulse();
     }
 
     private void Update()
@@ -44,15 +55,26 @@ public class RadarPulse : MonoBehaviour
         range += rangeSpeed * Time.deltaTime;
         if (range > rangeMax)
         {
-            range = 0;
-            alreadyPingedColliderList.Clear();
+            ResetPulse();
+            isActivate = false;
         }
-        pulseTransform.localScale = new Vector3(range / 2, range / 2);
+        else
+        {
+            DrawPulse();
+        }
+    }
+
+    void DrawPulse()
+    {
+        if (pulseObject)
+        {
+            pulseObject.transform.localScale = new Vector3(range / 2, range / 2);
+        }
     }
 
     void UpdateRadarDetection()
     {
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position - (transform.forward * range), range, transform.forward, 10 * range, layerToDetect);
+        RaycastHit[] hits = Physics.SphereCastAll(startPosition - (transform.forward * range), range, transform.forward, 10 * range, layerToDetect);
         if (hits.Length > 0)
         {
             foreach (var hit in hits)
@@ -60,25 +82,48 @@ public class RadarPulse : MonoBehaviour
                 if (!alreadyPingedColliderList.Contains(hit.collider))
                 {
                     alreadyPingedColliderList.Add(hit.collider);
-                    Transform radarPingTransform = Instantiate(pfRadarPing, new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, hit.collider.transform.position.z - (hit.collider.transform.localScale.z / 2) - 1), Quaternion.identity);
+                    Transform radarPingTransform = Instantiate(pfRadarPing, new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, hit.collider.transform.position.z - (hit.collider.transform.localScale.z / 2) - 0.1f), Quaternion.identity);
                     RadarPing radarPing = radarPingTransform.GetComponent<RadarPing>();
                     if (radarPing)
                     {
-                        radarPing.SetColor(Color.magenta);
+                        radarPing.SetColor(Color.white);
                     }
                 }
             }
         }
     }
 
-    public void SetIsActivate(bool isActivated)
+    void ResetPulse()
     {
-        if (!isActivated)
+        if (pulseObject)
         {
-            range = rangeMax;
-            UpdatePulse();
+            Destroy(pulseObject);
         }
-
-        this.isActivate = isActivated;
+        range = 0.1f;
+        alreadyPingedColliderList.Clear();
     }
+
+    public void ActivateRadar()
+    {
+        if (canActivate)
+        {
+            ResetPulse();
+            pulseObject = Instantiate(pulsePrefab, transform.position, new Quaternion(0, 0, 0, 0));
+            startPosition = transform.position;
+            isActivate = true;
+            canActivate = false;
+            Debug.Log("Chech");
+            StartCoroutine(ResetCanActivate());
+        }
+    }
+
+    IEnumerator ResetCanActivate()
+    {
+        Debug.Log(reloadTime);
+        yield return new WaitForSeconds(reloadTime);
+        canActivate = true;
+        Debug.Log("ok");
+    }
+
+
 }

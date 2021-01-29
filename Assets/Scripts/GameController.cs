@@ -10,161 +10,237 @@ public class GameController : MonoBehaviour
     [Header("Speed Settings")]
     [SerializeField]
     [Tooltip("Speed in Unit/Sec")]
-    private float m_maxSpeed = 30;
+    private float m_maxSpeedH = 30;
     [SerializeField]
     [Tooltip("Speed in Unit/Sec")]
-    private float m_minSpeed = -10, m_acceleration = 3, m_deceleration = 3, m_inputAcceleration = 3, m_inputDeceleration = 3;
+    private float m_minSpeedH = -10, m_accelerationH = 3, m_decelerationH = 3, m_inputAccelerationH = 3, m_inputDecelerationH = 3;
 
-    private float m_actualSpeed;
+    private float m_actualSpeedH;
+
+
+
+    [Header("Speed Settings")]
+    [SerializeField]
+    [Tooltip("Speed in Unit/Sec")]
+    private float m_maxSpeedV = 30;
+    [SerializeField]
+    [Tooltip("Speed in Unit/Sec")]
+    private float m_minSpeedV = -10, m_accelerationV = 3, m_decelerationV = 3, m_inputAccelerationV = 3, m_inputDecelerationV = 3;
+
+    private float m_actualSpeedV;
     #endregion
 
 
-    #region Rotation
-    [Header("Rotation Speed Settings")]
-    [SerializeField]
-    [Tooltip("Speed in Unit/Sec")]
-    private float m_maxRSpeed = 10;
+    //#region Rotation
+    //[Header("Rotation Speed Settings")]
+    //[SerializeField]
+    //[Tooltip("Speed in Unit/Sec")]
+    //private float m_maxRSpeed = 10;
 
-    [SerializeField]
-    [Tooltip("Speed in Unit/Sec")]
-    private float m_minRSpeed = -10, m_rAcceleration = 2, m_rDeceleration = 2, m_rInputAcceleration = 2, m_rInputDeceleration = 2;
+    //[SerializeField]
+    //[Tooltip("Speed in Unit/Sec")]
+    //private float m_minRSpeed = -10, m_rAcceleration = 2, m_rDeceleration = 2, m_rInputAcceleration = 2, m_rInputDeceleration = 2;
 
-    [SerializeField]
-    private float m_maxZRotation = 60, m_minZRotation = -60;
+    //[SerializeField]
+    //private float m_maxZRotation = 60, m_minZRotation = -60;
 
-    private float m_rotateSpeed;
-    #endregion
+    //private float m_rotateSpeed;
+    //#endregion
 
 
     #region Movement
-    private Vector3 m_move;
     private CharacterController m_controller;
     #endregion
 
 
     private RadarPulse radarPulse;
 
+    private Transform lightObject;
+
     void Start()
     {
+        lightObject = transform.Find("RotativeLight");
+
         radarPulse = transform.GetComponentInChildren<RadarPulse>();
-        if (radarPulse)
-        {
-            radarPulse.SetIsActivate(isInputActivate);
-        }
+        //if (radarPulse)
+        //{
+        //    radarPulse.SetIsActivate(isInputActivate);
+        //}
 
         m_controller = GetComponent<CharacterController>();
     }
     void Update()
     {
-        m_move = Vector3.zero;
-        ChangeSpeed();
-        RotateController();
+        ChangeSpeedHorizontal();
+        ChangeSpeedVertical();
+        UpdateLightRotation();
+        UpdateSonarPulse();
+        //RotateController();
         MoveForward();
     }
 
-    void ChangeSpeed()
+    void UpdateSonarPulse()
+    {
+        if (Input.GetButtonDown("Sonar") && radarPulse && isInputActivate)
+        {
+            radarPulse.ActivateRadar();
+        }
+    }
+
+    void ChangeSpeedHorizontal()
     {
         if (Input.GetAxis("Horizontal") > 0 && isInputActivate)
         {
+            m_actualSpeedH += m_inputAccelerationH * Time.deltaTime;
 
-            if (m_actualSpeed >= m_maxSpeed)
+            if (m_actualSpeedH >= m_maxSpeedH)
             {
-                m_actualSpeed = m_maxSpeed;
+                m_actualSpeedH = m_maxSpeedH;
             }
-            else
-            {
-                m_actualSpeed += m_inputAcceleration * Time.deltaTime;
-            }
+
         }
-        else if (Input.GetAxis("Horizontal") < 0 && m_actualSpeed > m_minSpeed && isInputActivate)
+        else if (Input.GetAxis("Horizontal") < 0 && m_actualSpeedH > m_minSpeedH && isInputActivate)
         {
-            m_actualSpeed -= m_inputDeceleration * Time.deltaTime;
+            m_actualSpeedH -= m_inputDecelerationH * Time.deltaTime;
+
+            if (m_actualSpeedH <= m_minSpeedH)
+            {
+                m_actualSpeedH = m_minSpeedH;
+            }
         }
         else
         {
-            if (m_actualSpeed < 0)
+            if (m_actualSpeedH < 0)
             {
-                m_actualSpeed += m_acceleration * Time.deltaTime;
+                m_actualSpeedH += m_accelerationH * Time.deltaTime;
+            }
+            else if (m_actualSpeedH > 0)
+            {
+                m_actualSpeedH -= m_decelerationH * Time.deltaTime;
             }
 
-            if (m_actualSpeed > 0)
+            if (m_actualSpeedH > -0.5f && m_actualSpeedH < 0.5f)
             {
-                m_actualSpeed -= m_deceleration * Time.deltaTime;
+                m_actualSpeedH = 0;
+            }
+        }
+    }
+
+    void ChangeSpeedVertical()
+    {
+        if (Input.GetAxis("Vertical") > 0 && isInputActivate)
+        {
+            m_actualSpeedV += m_inputAccelerationV * Time.deltaTime;
+
+            if (m_actualSpeedV >= m_maxSpeedV)
+            {
+                m_actualSpeedV = m_maxSpeedV;
             }
 
-            if (m_actualSpeed > -0.5f && m_actualSpeed < 0.5f)
+        }
+        else if (Input.GetAxis("Vertical") < 0 && m_actualSpeedV > m_minSpeedV && isInputActivate)
+        {
+            m_actualSpeedV -= m_inputDecelerationV * Time.deltaTime;
+
+            if (m_actualSpeedV <= m_minSpeedV)
             {
-                m_actualSpeed = 0;
+                m_actualSpeedV = m_minSpeedV;
+            }
+        }
+        else
+        {
+            if (m_actualSpeedV < 0)
+            {
+                m_actualSpeedV += m_accelerationV * Time.deltaTime;
+            }
+            else if (m_actualSpeedV > 0)
+            {
+                m_actualSpeedV -= m_decelerationV * Time.deltaTime;
+            }
+
+            if (m_actualSpeedV > -0.5f && m_actualSpeedV < 0.5f)
+            {
+                m_actualSpeedV = 0;
             }
         }
     }
 
     void MoveForward()
     {
-        m_move = Vector3.zero;
-        m_move = transform.right;
-        m_controller.Move(m_move * m_actualSpeed * Time.deltaTime);
+        m_controller.Move(((transform.right * m_actualSpeedH) + (transform.up * m_actualSpeedV)) * Time.deltaTime);
     }
 
-    private void RotateController()
-    {
-        float zRotation = transform.eulerAngles.z;
+    //private void RotateController()
+    //{
+    //    float zRotation = transform.eulerAngles.z;
 
-        if (zRotation > m_maxZRotation && zRotation < 360 + m_minZRotation)
-        {
-            m_rotateSpeed = 0;
+    //    if (zRotation > m_maxZRotation && zRotation < 360 + m_minZRotation)
+    //    {
+    //        m_rotateSpeed = 0;
 
-            if (zRotation < 180)
-            {
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, m_maxZRotation - 0.1f);
-            }
-            else
-            {
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 360 + m_minZRotation + 0.1f);
-            }
-        }
-        else if (Input.GetAxis("Vertical") > 0 && isInputActivate)
-        {
-            if (m_rotateSpeed >= m_maxRSpeed)
-            {
-                m_rotateSpeed = m_maxRSpeed;
-            }
-            else
-            {
-                m_rotateSpeed += m_rInputAcceleration * Time.deltaTime;
-            }
-        }
-        else if (Input.GetAxis("Vertical") < 0 && m_rotateSpeed > m_minRSpeed && isInputActivate)
-        {
-            m_rotateSpeed -= m_rInputDeceleration * Time.deltaTime;
-        }
-        else
-        {
-            if (m_rotateSpeed < 0)
-            {
-                m_rotateSpeed += m_rAcceleration * Time.deltaTime;
-            }
+    //        if (zRotation < 180)
+    //        {
+    //            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, m_maxZRotation - 0.1f);
+    //        }
+    //        else
+    //        {
+    //            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 360 + m_minZRotation + 0.1f);
+    //        }
+    //    }
+    //    else if (Input.GetAxis("Vertical") > 0 && isInputActivate)
+    //    {
+    //        if (m_rotateSpeed >= m_maxRSpeed)
+    //        {
+    //            m_rotateSpeed = m_maxRSpeed;
+    //        }
+    //        else
+    //        {
+    //            m_rotateSpeed += m_rInputAcceleration * Time.deltaTime;
+    //        }
+    //    }
+    //    else if (Input.GetAxis("Vertical") < 0 && m_rotateSpeed > m_minRSpeed && isInputActivate)
+    //    {
+    //        m_rotateSpeed -= m_rInputDeceleration * Time.deltaTime;
+    //    }
+    //    else
+    //    {
+    //        if (m_rotateSpeed < 0)
+    //        {
+    //            m_rotateSpeed += m_rAcceleration * Time.deltaTime;
+    //        }
 
-            if (m_rotateSpeed > 0)
-            {
-                m_rotateSpeed -= m_rDeceleration * Time.deltaTime;
-            }
+    //        if (m_rotateSpeed > 0)
+    //        {
+    //            m_rotateSpeed -= m_rDeceleration * Time.deltaTime;
+    //        }
 
-            if (m_rotateSpeed > -0.5f && m_rotateSpeed < 0.5f)
-            {
-                m_rotateSpeed = 0;
-            }
-        }
+    //        if (m_rotateSpeed > -0.5f && m_rotateSpeed < 0.5f)
+    //        {
+    //            m_rotateSpeed = 0;
+    //        }
+    //    }
 
-        transform.RotateAround(transform.position, new Vector3(0, 0, 1), m_rotateSpeed * Time.deltaTime);
-    }
+    //    transform.RotateAround(transform.position, new Vector3(0, 0, 1), m_rotateSpeed * Time.deltaTime);
+    //}
 
     public void SetIsInputActivate(bool isActivate)
     {
         this.isInputActivate = isActivate;
-        if (radarPulse)
+        //if (radarPulse)
+        //{
+        //    radarPulse.SetIsActivate(isInputActivate);
+        //}
+    }
+
+    void UpdateLightRotation()
+    {
+        if (isInputActivate)
         {
-            radarPulse.SetIsActivate(isInputActivate);
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
+            worldPos.z = lightObject.transform.position.z;
+
+            lightObject.LookAt(worldPos);
         }
+
     }
 }
