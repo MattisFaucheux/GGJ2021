@@ -57,6 +57,7 @@ public class GameController : MonoBehaviour
     private RadarPulse radarPulse;
 
     private Transform lightObject;
+    public ParticleSystem bubbleParticle;
 
     void Start()
     {
@@ -169,7 +170,17 @@ public class GameController : MonoBehaviour
 
     protected virtual void MoveForward()
     {
-        m_controller.Move(((transform.right * m_actualSpeedH) + (transform.up * m_actualSpeedV)) * Time.deltaTime);
+        Vector3 incomingMovement = ((transform.right * m_actualSpeedH) + (transform.up * m_actualSpeedV)) *Time.deltaTime;
+        m_controller.Move(incomingMovement);
+
+        if (incomingMovement != Vector3.zero && !bubbleParticle.isPlaying)
+        {
+            bubbleParticle.Play();
+        }
+        else if (incomingMovement == Vector3.zero && !bubbleParticle.isStopped)
+        {
+            bubbleParticle.Stop();
+        }
     }
 
     //private void RotateController()

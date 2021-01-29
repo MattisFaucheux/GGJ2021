@@ -23,6 +23,15 @@ public class PodController : GameController
 
         m_controller.Move(incomingMovement);
 
+        if (incomingMovement != Vector3.zero && !bubbleParticle.isPlaying)
+        {
+            bubbleParticle.Play();
+        }
+        else if (incomingMovement == Vector3.zero && !bubbleParticle.isStopped)
+        {
+            bubbleParticle.Stop();
+        }
+
     }
 
     public void SetIsMaxPodDistance(bool isMaxDistance)
