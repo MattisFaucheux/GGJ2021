@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
     [Tooltip("Speed in Unit/Sec")]
     private float m_minSpeedH = -10, m_accelerationH = 3, m_decelerationH = 3, m_inputAccelerationH = 3, m_inputDecelerationH = 3;
 
-    private float m_actualSpeedH;
+    protected float m_actualSpeedH;
 
 
 
@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
     [Tooltip("Speed in Unit/Sec")]
     private float m_minSpeedV = -10, m_accelerationV = 3, m_decelerationV = 3, m_inputAccelerationV = 3, m_inputDecelerationV = 3;
 
-    private float m_actualSpeedV;
+    protected float m_actualSpeedV;
     #endregion
 
 
@@ -49,16 +49,19 @@ public class GameController : MonoBehaviour
 
 
     #region Movement
-    private CharacterController m_controller;
+    protected CharacterController m_controller;
+    protected Vector3 startPosition;
     #endregion
 
 
     private RadarPulse radarPulse;
 
     private Transform lightObject;
+    public ParticleSystem bubbleParticle;
 
     void Start()
     {
+        startPosition = transform.position;
         lightObject = transform.Find("RotativeLight");
 
         radarPulse = transform.GetComponentInChildren<RadarPulse>();
@@ -165,9 +168,19 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void MoveForward()
+    protected virtual void MoveForward()
     {
-        m_controller.Move(((transform.right * m_actualSpeedH) + (transform.up * m_actualSpeedV)) * Time.deltaTime);
+        Vector3 incomingMovement = ((transform.right * m_actualSpeedH) + (transform.up * m_actualSpeedV)) *Time.deltaTime;
+        m_controller.Move(incomingMovement);
+
+        if (incomingMovement != Vector3.zero && !bubbleParticle.isPlaying)
+        {
+            bubbleParticle.Play();
+        }
+        else if (incomingMovement == Vector3.zero && !bubbleParticle.isStopped)
+        {
+            bubbleParticle.Stop();
+        }
     }
 
     //private void RotateController()
