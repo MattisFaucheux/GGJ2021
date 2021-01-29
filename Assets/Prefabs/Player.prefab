@@ -214,7 +214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 592609467114373887}
   - component: {fileID: 1522096750869211540}
-  - component: {fileID: 8635414871646529837}
+  - component: {fileID: 3076686508771851869}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -258,7 +258,7 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8635414871646529837
+--- !u!114 &3076686508771851869
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1919884367965999962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c283194ce640df84b88c322bab543d8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 66e027059b5d02547b0c34f1992543b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isInputActivate: 1
@@ -283,6 +283,8 @@ MonoBehaviour:
   m_decelerationV: 15
   m_inputAccelerationV: 5
   m_inputDecelerationV: 5
+  isMaxPodDistance: 1
+  MaxPodDistance: 20
 --- !u!1 &2015689741095519138
 GameObject:
   m_ObjectHideFlags: 0
