@@ -38,4 +38,9 @@ public class PodController : GameController
     {
         isMaxPodDistance = isMaxDistance;
     }
+
+    public override void TakeDamage()
+    {
+        Debug.Log("petite2Chokola");
+    }
 }

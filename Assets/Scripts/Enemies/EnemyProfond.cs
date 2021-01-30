@@ -8,7 +8,8 @@ public class EnemyProfond : MonoBehaviour
     {
         MOOVE,
         STOP,
-        ATTACK
+        ATTACK,
+        ESCAPE
     }
 
     private GameController[] playerControllers;
@@ -16,13 +17,16 @@ public class EnemyProfond : MonoBehaviour
     private bool PlayerEnoughtCloseToMoove = false;
     public float MaxPlayerDistanceToMoove = 50.0f;
 
+    public float MaxDistanceToAttack = 5.0f;
+
     private CharacterController characterController;
 
     private Vector3 initialPos;
     public float MaxDistanceFromInitialPos = 50.0f;
 
 
-
+    private bool canAttack = true;
+    public float attackReloadTime = 6.0f;
 
 
     public float MooveSpeed = 5;
@@ -45,6 +49,8 @@ public class EnemyProfond : MonoBehaviour
         initialPos = transform.position;
         characterController = GetComponent<CharacterController>();
         UpdateControllerDetection();
+
+        //characterController.
     }
 
     // Update is called once per frame
@@ -63,17 +69,30 @@ public class EnemyProfond : MonoBehaviour
 
             if (ActionTimeRemaining <= 0)
             {
-                if (actualState == EnemyState.STOP)
+                switch (actualState)
                 {
-                    SwitchToMooveState();
-                }
-                else if (actualState == EnemyState.MOOVE)
-                {
-                    SwitchToStopState();
+                    case EnemyState.STOP:
+                        {
+                            SwitchToMooveState();
+                        }
+                        break;
+
+                    case EnemyState.MOOVE:
+                        { 
+                            SwitchToStopState();
+                        }
+                        break;
+
+                    case EnemyState.ESCAPE:
+                        {
+                            SwitchToMooveState();
+                        }
+                        break;
                 }
             }
 
-            if (Vector3.Distance(transform.position, initialPos) > MaxDistanceFromInitialPos)
+
+            if (Vector3.Distance(transform.position, initialPos) > MaxDistanceFromInitialPos && actualState != EnemyState.ESCAPE)
             {
                 MooveDirection = initialPos - transform.position;
                 MooveDirection.Normalize();
@@ -111,16 +130,86 @@ public class EnemyProfond : MonoBehaviour
 
         if (playerControllers.Length > 0)
         {
+            float DistanceA = Vector3.Distance(transform.position, playerControllers[0].transform.position);
+
             if (playerControllers.Length >= 2 && playerControllers[1])
             {
-                PlayerEnoughtCloseToMoove =
-                    (Vector3.Distance(transform.position, playerControllers[0].transform.position) < MaxPlayerDistanceToMoove ||
-                     Vector3.Distance(transform.position, playerControllers[1].transform.position) < MaxPlayerDistanceToMoove);
+                float DistanceB = Vector3.Distance(transform.position, playerControllers[1].transform.position);
+
+                PlayerEnoughtCloseToMoove = (DistanceA < MaxPlayerDistanceToMoove || DistanceB < MaxPlayerDistanceToMoove);
+
+                //if (DistanceB < MaxDistanceToAttack && canAttack)
+                //{
+                //    Vector3 dir = playerControllers[1].transform.position - transform.position;
+                //    dir.z = 0;
+                //    dir.Normalize();
+                //    SetIsAttacking(dir);
+                //}
             }
             else
             {
-                PlayerEnoughtCloseToMoove = Vector3.Distance(transform.position, playerControllers[0].transform.position) < MaxPlayerDistanceToMoove;
+                PlayerEnoughtCloseToMoove = DistanceA < MaxPlayerDistanceToMoove;
+
+                //if (DistanceA < MaxDistanceToAttack && canAttack)
+                //{
+                //    Vector3 dir = playerControllers[0].transform.position - transform.position;
+                //    dir.z = 0;
+                //    dir.Normalize();
+                //    SetIsAttacking(dir);
+                //}
             }
         }
+    }
+
+    public void SetIsEscaping(Vector3 dirToEscape)
+    {
+        if (actualState == EnemyState.ESCAPE)
+        {
+            return;
+        }
+
+        MooveDirection = dirToEscape;
+        actualState = EnemyState.ESCAPE;
+        ActionTimeRemaining = 1;
+    }
+
+    public void SetIsAttacking(Vector3 dirToAttack)
+    {
+        if ((actualState == EnemyState.ESCAPE || actualState == EnemyState.ATTACK) && !canAttack)
+        {
+            return;
+        }
+
+        MooveDirection = dirToAttack;
+        actualState = EnemyState.ESCAPE;
+        ActionTimeRemaining = 6;
+    }
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        //if (!canAttack)
+        //{
+        //    return;
+        //}
+
+        //GameController player = other.gameObject.GetComponent<GameController>();
+        //if (player)
+        //{
+        //    canAttack = false;
+        //    player.TakeDamage();
+        //    Vector3 dir = other.transform.position - transform.position;
+        //    dir.z = 0;
+        //    dir.Normalize();
+        //    SetIsEscaping(dir);
+        //    StartCoroutine(ReloadAttack());
+        //}
+
+    }
+
+    IEnumerator ReloadAttack()
+    {
+        yield return new WaitForSeconds(attackReloadTime);
+        canAttack = true;
     }
 }

@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     private GameController submarineController;
 
     private Transform submarineInterior;
+    private Transform podAttached;
+    private Transform subMarineModel;
 
     public GameObject playerPrefab;
     private GameObject playerObject;
@@ -33,6 +35,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         submarineInterior = submarine.transform.Find("Interior");
+        podAttached = submarine.transform.Find("PodAttached");
+        subMarineModel = submarine.transform.Find("SubmarineModel");
 
 
         initialCameraPos = Camera.transform.position;
@@ -42,13 +46,25 @@ public class GameManager : MonoBehaviour
         {
             submarineController.SetIsInputActivate(pState == PlayerState.SUBMARINE);
         }
-        else if (submarineInterior)
+        
+        if (submarineInterior)
         {
             submarineInterior.gameObject.SetActive(pState == PlayerState.INTERIOR);
         }
-        else if(pState == PlayerState.POD)
+        
+        if(pState == PlayerState.POD)
         {
             SpawnPod();
+        }
+
+        if (podAttached)
+        {
+            podAttached.gameObject.SetActive(pState != PlayerState.POD);
+        }
+
+        if (subMarineModel)
+        {
+            subMarineModel.gameObject.SetActive(pState == PlayerState.SUBMARINE);
         }
     }
 
@@ -68,12 +84,14 @@ public class GameManager : MonoBehaviour
                 submarineInterior.gameObject.SetActive(false);
                 pState = PlayerState.SUBMARINE;
                 submarineController.SetIsInputActivate(true);
+                subMarineModel.gameObject.SetActive(true);
             }
             else if(pState == PlayerState.SUBMARINE)
             {
                 submarineInterior.gameObject.SetActive(true);
                 pState = PlayerState.INTERIOR;
                 submarineController.SetIsInputActivate(false);
+                subMarineModel.gameObject.SetActive(false);
             }
         }
 
@@ -96,12 +114,17 @@ public class GameManager : MonoBehaviour
 
     void SpawnPod()
     {
-        playerObject = Instantiate(playerPrefab, submarine.transform.position + new Vector3(0, submarine.transform.localScale.y / 2 + 1, 0), new Quaternion(0, 0, 0, 0));
+        playerObject = Instantiate(playerPrefab, submarine.transform.position + new Vector3(-1, submarine.transform.localScale.y / 2 - 2.5f, 0), new Quaternion(0, 0, 0, 0));
         playerObjectController = playerObject.GetComponent<GameController>();
 
         if (playerObjectController)
         {
             playerObjectController.SetIsInputActivate(true);
+        }
+
+        if (podAttached)
+        {
+            podAttached.gameObject.SetActive(false);
         }
     }
 
@@ -110,6 +133,11 @@ public class GameManager : MonoBehaviour
         DestroyImmediate(playerObject);
         playerObject = null;
         playerObjectController = null;
+
+        if (podAttached)
+        {
+            podAttached.gameObject.SetActive(true);
+        }
     }
 
     void UpdateCameraPosition()

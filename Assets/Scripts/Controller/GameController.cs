@@ -256,4 +256,9 @@ public class GameController : MonoBehaviour
         }
 
     }
+
+    public virtual void TakeDamage()
+    {
+        Debug.Log("getOOF");
+    }
 }

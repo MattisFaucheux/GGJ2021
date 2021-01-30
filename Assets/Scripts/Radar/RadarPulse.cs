@@ -118,7 +118,6 @@ public class RadarPulse : MonoBehaviour
 
     IEnumerator ResetCanActivate()
     {
-        Debug.Log(reloadTime);
         yield return new WaitForSeconds(reloadTime);
         canActivate = true;
     }
