@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.14494307, g: 0.1075706, b: 0.1022522, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -179,6 +179,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyProfond (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MooveSpeed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: attackReloadTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MaxDistanceToAttack
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: m_RootOrder
@@ -247,6 +267,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyProfond (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MooveSpeed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: attackReloadTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MaxDistanceToAttack
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -317,6 +357,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyProfond (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MooveSpeed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: attackReloadTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MaxDistanceToAttack
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: m_RootOrder
@@ -385,6 +445,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyProfond (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MooveSpeed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: attackReloadTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MaxDistanceToAttack
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -659,6 +739,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyProfond (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MooveSpeed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: attackReloadTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MaxDistanceToAttack
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: m_RootOrder
@@ -820,6 +920,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyProfond (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MooveSpeed
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: attackReloadTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MaxDistanceToAttack
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}

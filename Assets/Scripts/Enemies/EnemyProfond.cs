@@ -26,7 +26,7 @@ public class EnemyProfond : MonoBehaviour
 
 
     private bool canAttack = true;
-    public float attackReloadTime = 6.0f;
+    public float attackReloadTime = 10.0f;
 
 
     public float MooveSpeed = 5;
@@ -138,25 +138,25 @@ public class EnemyProfond : MonoBehaviour
 
                 PlayerEnoughtCloseToMoove = (DistanceA < MaxPlayerDistanceToMoove || DistanceB < MaxPlayerDistanceToMoove);
 
-                //if (DistanceB < MaxDistanceToAttack && canAttack)
-                //{
-                //    Vector3 dir = playerControllers[1].transform.position - transform.position;
-                //    dir.z = 0;
-                //    dir.Normalize();
-                //    SetIsAttacking(dir);
-                //}
+                if (DistanceB < MaxDistanceToAttack && canAttack)
+                {
+                    Vector3 dir = playerControllers[1].transform.position - transform.position;
+                    dir.z = 0;
+                    dir.Normalize();
+                    SetIsAttacking(dir);
+                }
             }
             else
             {
                 PlayerEnoughtCloseToMoove = DistanceA < MaxPlayerDistanceToMoove;
 
-                //if (DistanceA < MaxDistanceToAttack && canAttack)
-                //{
-                //    Vector3 dir = playerControllers[0].transform.position - transform.position;
-                //    dir.z = 0;
-                //    dir.Normalize();
-                //    SetIsAttacking(dir);
-                //}
+                if (DistanceA < MaxDistanceToAttack && canAttack)
+                {
+                    Vector3 dir = playerControllers[0].transform.position - transform.position;
+                    dir.z = 0;
+                    dir.Normalize();
+                    SetIsAttacking(dir);
+                }
             }
         }
     }
@@ -175,35 +175,35 @@ public class EnemyProfond : MonoBehaviour
 
     public void SetIsAttacking(Vector3 dirToAttack)
     {
-        if ((actualState == EnemyState.ESCAPE || actualState == EnemyState.ATTACK) && !canAttack)
+        if (actualState == EnemyState.ESCAPE || actualState == EnemyState.ATTACK || !canAttack)
         {
             return;
         }
 
         MooveDirection = dirToAttack;
-        actualState = EnemyState.ESCAPE;
-        ActionTimeRemaining = 6;
+        actualState = EnemyState.ATTACK;
+        ActionTimeRemaining = 1;
     }
 
 
     void OnTriggerEnter(Collider other)
     {
-        //if (!canAttack)
-        //{
-        //    return;
-        //}
+        if (!canAttack)
+        {
+            return;
+        }
 
-        //GameController player = other.gameObject.GetComponent<GameController>();
-        //if (player)
-        //{
-        //    canAttack = false;
-        //    player.TakeDamage();
-        //    Vector3 dir = other.transform.position - transform.position;
-        //    dir.z = 0;
-        //    dir.Normalize();
-        //    SetIsEscaping(dir);
-        //    StartCoroutine(ReloadAttack());
-        //}
+        GameController player = other.gameObject.GetComponent<GameController>();
+        if (player)
+        {
+            canAttack = false;
+            player.TakeDamage();
+            Vector3 dir = other.transform.position - transform.position;
+            dir.z = 0;
+            dir.Normalize();
+            SetIsEscaping(dir);
+            StartCoroutine(ReloadAttack());
+        }
 
     }
 

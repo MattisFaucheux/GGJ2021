@@ -115,7 +115,8 @@ MonoBehaviour:
   MaxPlayerDistanceToMoove: 30
   MaxDistanceToAttack: 15
   MaxDistanceFromInitialPos: 50
-  MooveSpeed: 5
+  attackReloadTime: 10
+  MooveSpeed: 4.5
   MinTimeMooving: 2
   MaxTimeMooving: 5
   MinTimeStop: 2
