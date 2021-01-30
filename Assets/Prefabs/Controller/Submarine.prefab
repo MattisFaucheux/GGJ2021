@@ -4211,6 +4211,11 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5112902185241527004, guid: cd507a518a597704e9f8a6ffb007886b,
+        type: 3}
+      propertyPath: LightsModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd507a518a597704e9f8a6ffb007886b, type: 3}
 --- !u!4 &2865625545459449732 stripped
@@ -4232,6 +4237,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8774079028596003076}
     m_Modifications:
+    - target: {fileID: 177650948765595382, guid: 451a29c4a49097a4f8e50a2f75e5a9de,
+        type: 3}
+      propertyPath: m_Name
+      value: InteriorPlayer
+      objectReference: {fileID: 0}
     - target: {fileID: 177650948849108964, guid: 451a29c4a49097a4f8e50a2f75e5a9de,
         type: 3}
       propertyPath: m_Name
