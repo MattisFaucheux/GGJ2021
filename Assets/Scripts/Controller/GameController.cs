@@ -59,6 +59,9 @@ public class GameController : MonoBehaviour
     private Transform lightObject;
     public ParticleSystem bubbleParticle;
 
+    public Light spotLight;
+    public GameObject spotLightTrigger;
+
     void Start()
     {
         startPosition = transform.position;
@@ -77,6 +80,7 @@ public class GameController : MonoBehaviour
         ChangeSpeedHorizontal();
         ChangeSpeedVertical();
         UpdateLightRotation();
+        GetLightSwitch();
         UpdateSonarPulse();
         //RotateController();
         MoveForward();
@@ -255,6 +259,15 @@ public class GameController : MonoBehaviour
             lightObject.LookAt(worldPos);
         }
 
+    }
+
+    void GetLightSwitch()
+    {
+        if (Input.GetButtonDown("LightSwitch"))
+        {
+            spotLight.gameObject.SetActive(!spotLight.gameObject.activeSelf);
+            spotLightTrigger.SetActive(spotLight.gameObject.activeSelf);
+        }
     }
 
     public virtual void TakeDamage()

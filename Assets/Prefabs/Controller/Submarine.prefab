@@ -4387,6 +4387,8 @@ MonoBehaviour:
   m_inputAccelerationV: 2.5
   m_inputDecelerationV: 2.5
   bubbleParticle: {fileID: 2865625545459449730}
+  spotLight: {fileID: 2112206689}
+  spotLightTrigger: {fileID: 2079106763}
 --- !u!135 &3517990242594044457
 SphereCollider:
   m_ObjectHideFlags: 0

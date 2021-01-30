@@ -285,6 +285,8 @@ MonoBehaviour:
   m_inputAccelerationV: 5
   m_inputDecelerationV: 5
   bubbleParticle: {fileID: 5112902186243686812}
+  spotLight: {fileID: 8832169886666865463}
+  spotLightTrigger: {fileID: 7251073263213296008}
   isMaxPodDistance: 1
   MaxPodDistance: 20
 --- !u!1 &2015689741095519138

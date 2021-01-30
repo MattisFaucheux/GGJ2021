@@ -15,4 +15,22 @@ public class LightTrigger : MonoBehaviour
             enemyP.SetIsEscaping(dir);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        EnemyPolype enemyP = other.GetComponent<EnemyPolype>();
+        if (enemyP)
+        {
+            enemyP.SetIsIlluminatedOn();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        EnemyPolype enemyP = other.GetComponent<EnemyPolype>();
+        if (enemyP)
+        {
+            enemyP.SetIsIlluminatedOff();
+        }
+    }
 }

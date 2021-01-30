@@ -13,7 +13,6 @@ public class EnemyProfond : MonoBehaviour
     }
 
     private GameController[] playerControllers;
-    private Transform podObject;
     private bool PlayerEnoughtCloseToMoove = false;
     public float MaxPlayerDistanceToMoove = 50.0f;
 
@@ -49,8 +48,6 @@ public class EnemyProfond : MonoBehaviour
         initialPos = transform.position;
         characterController = GetComponent<CharacterController>();
         UpdateControllerDetection();
-
-        //characterController.
     }
 
     // Update is called once per frame
@@ -130,34 +127,36 @@ public class EnemyProfond : MonoBehaviour
 
         if (playerControllers.Length > 0)
         {
-            float DistanceA = Vector3.Distance(transform.position, playerControllers[0].transform.position);
+            float Distance = Vector3.Distance(transform.position, playerControllers[0].transform.position);
 
-            if (playerControllers.Length >= 2 && playerControllers[1])
+            //if (playerControllers.Length >= 2 && playerControllers[1])
+            //{
+            //    float DistanceB = Vector3.Distance(transform.position, playerControllers[1].transform.position);
+
+            //    PlayerEnoughtCloseToMoove =
+            //        (Distance < MaxPlayerDistanceToMoove || DistanceB < MaxPlayerDistanceToMoove);
+            //}
+
+            //if (DistanceB < MaxDistanceToAttack && canAttack)
+            //    {
+            //        Vector3 dir = playerControllers[1].transform.position - transform.position;
+            //        dir.z = 0;
+            //        dir.Normalize();
+            //        SetIsAttacking(dir);
+            //    }
+            //}
+            //else
+            //{
+            PlayerEnoughtCloseToMoove = Distance < MaxPlayerDistanceToMoove;
+
+            if (Distance < MaxDistanceToAttack && canAttack)
             {
-                float DistanceB = Vector3.Distance(transform.position, playerControllers[1].transform.position);
-
-                PlayerEnoughtCloseToMoove = (DistanceA < MaxPlayerDistanceToMoove || DistanceB < MaxPlayerDistanceToMoove);
-
-                if (DistanceB < MaxDistanceToAttack && canAttack)
-                {
-                    Vector3 dir = playerControllers[1].transform.position - transform.position;
-                    dir.z = 0;
-                    dir.Normalize();
-                    SetIsAttacking(dir);
-                }
+                Vector3 dir = playerControllers[0].transform.position - transform.position;
+                dir.z = 0;
+                dir.Normalize();
+                SetIsAttacking(dir);
             }
-            else
-            {
-                PlayerEnoughtCloseToMoove = DistanceA < MaxPlayerDistanceToMoove;
-
-                if (DistanceA < MaxDistanceToAttack && canAttack)
-                {
-                    Vector3 dir = playerControllers[0].transform.position - transform.position;
-                    dir.z = 0;
-                    dir.Normalize();
-                    SetIsAttacking(dir);
-                }
-            }
+            //}
         }
     }
 
