@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8071105589441716867}
   - component: {fileID: 2337625555581885098}
   - component: {fileID: 2337625555581885097}
+  - component: {fileID: 8591994380231302951}
   m_Layer: 9
   m_Name: EnemyProfond
   m_TagString: Untagged
@@ -121,6 +122,19 @@ MonoBehaviour:
   MaxTimeMooving: 5
   MinTimeStop: 2
   MaxTimeStop: 5
+--- !u!135 &8591994380231302951
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2337625555581885096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &1287463875601903250
 Animator:
   serializedVersion: 3

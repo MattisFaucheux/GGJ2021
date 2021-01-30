@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.14494266, g: 0.1075706, b: 0.102251485, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -290,7 +290,7 @@ PrefabInstance:
     - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: MaxDistanceToAttack
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -379,7 +379,7 @@ PrefabInstance:
     - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: MaxDistanceToAttack
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -468,7 +468,7 @@ PrefabInstance:
     - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: MaxDistanceToAttack
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -557,7 +557,7 @@ PrefabInstance:
     - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: MaxDistanceToAttack
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -796,7 +796,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &785175964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1013,7 +1013,7 @@ PrefabInstance:
     - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: MaxDistanceToAttack
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -1195,7 +1195,7 @@ PrefabInstance:
     - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: MaxDistanceToAttack
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -1413,6 +1413,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PolypeWall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5857021835117970082, guid: 95631d6c002692c4fa147bf136b59bb9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95631d6c002692c4fa147bf136b59bb9, type: 3}
@@ -2014,7 +2019,12 @@ PrefabInstance:
     - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
+        type: 3}
+      propertyPath: MaxDistanceToAttack
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -2029,7 +2039,7 @@ PrefabInstance:
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.56
+      value: 11.5
       objectReference: {fileID: 0}
     - target: {fileID: 2785300465935003251, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -2225,6 +2235,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PolypeWall
       objectReference: {fileID: 0}
+    - target: {fileID: 5857021835117970082, guid: 95631d6c002692c4fa147bf136b59bb9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95631d6c002692c4fa147bf136b59bb9, type: 3}
 --- !u!1001 &8295320678089932663
@@ -2289,7 +2304,7 @@ PrefabInstance:
     - target: {fileID: 8774079028596003076, guid: a6245819372dad04da81b1a833012d40,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6.3
       objectReference: {fileID: 0}
     - target: {fileID: 8774079028596003076, guid: a6245819372dad04da81b1a833012d40,
         type: 3}

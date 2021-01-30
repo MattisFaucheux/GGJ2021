@@ -174,7 +174,7 @@ public class EnemyProfond : MonoBehaviour
 
     public void SetIsAttacking(Vector3 dirToAttack)
     {
-        if (actualState == EnemyState.ESCAPE || actualState == EnemyState.ATTACK || !canAttack)
+        if (actualState == EnemyState.ESCAPE || !canAttack)
         {
             return;
         }
@@ -187,7 +187,7 @@ public class EnemyProfond : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!canAttack)
+        if (actualState != EnemyState.ATTACK)
         {
             return;
         }

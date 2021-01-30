@@ -263,7 +263,7 @@ public class GameController : MonoBehaviour
 
     void GetLightSwitch()
     {
-        if (Input.GetButtonDown("LightSwitch"))
+        if (Input.GetButtonDown("LightSwitch") && isInputActivate)
         {
             spotLight.gameObject.SetActive(!spotLight.gameObject.activeSelf);
             spotLightTrigger.SetActive(spotLight.gameObject.activeSelf);
