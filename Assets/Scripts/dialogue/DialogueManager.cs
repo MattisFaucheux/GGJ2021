@@ -8,6 +8,7 @@ public class DialogueManager : MonoBehaviour
     public TMPro.TextMeshProUGUI nameText;
     public TMPro.TextMeshProUGUI dialogueText;
     public float timeBetweenLetter;
+    public Animator animator;
 
     private Queue<string> sentences;
 
@@ -20,6 +21,8 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(dialogue dialogue)
     {
         //Debug.Log("Start conv with " + dialogue.name);
+
+        animator.SetBool("IsOpen", true);
 
         nameText.text = dialogue.name;
 
@@ -60,6 +63,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
+        animator.SetBool("IsOpen", false);
         Debug.Log("end of conv");
     }
 }
