@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public bool isCinemachine = true;
     public GameObject Camera;
     private Vector3 initialCameraPos;
 
@@ -135,13 +136,16 @@ public class GameManager : MonoBehaviour
 
     void UpdateCameraPosition()
     {
-        if (pState != PlayerState.POD)
+        if (!isCinemachine)
         {
-            Camera.transform.position = submarine.transform.position + initialCameraPos;
-        }
-        else if (playerObject)
-        {
-            Camera.transform.position = playerObject.transform.position + initialCameraPos;
+            if (pState != PlayerState.POD)
+            {
+                Camera.transform.position = submarine.transform.position + initialCameraPos;
+            }
+            else if (playerObject)
+            {
+                Camera.transform.position = playerObject.transform.position + initialCameraPos;
+            }
         }
     }
 

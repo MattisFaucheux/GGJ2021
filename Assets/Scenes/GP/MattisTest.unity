@@ -2356,6 +2356,11 @@ PrefabInstance:
       objectReference: {fileID: 4228986760031227063}
     - target: {fileID: 8619476672258139475, guid: 5ab11c18be9c84445bfc2ff3c606b6d4,
         type: 3}
+      propertyPath: isCinemachine
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619476672258139475, guid: 5ab11c18be9c84445bfc2ff3c606b6d4,
+        type: 3}
       propertyPath: SubmarineUpRotationZ
       value: 50
       objectReference: {fileID: 0}

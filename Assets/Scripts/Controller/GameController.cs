@@ -39,8 +39,8 @@ public class GameController : MonoBehaviour
     private RadarPulse radarPulse;
 
     private Transform lightObject;
-    public float LightRotationMaxAngle = 165;
-    public float LightRotationMinAngle = 145;
+    //public float LightRotationMaxAngle = 165;
+    //public float LightRotationMinAngle = 145;
 
 
     public ParticleSystem bubbleParticle;
@@ -73,6 +73,9 @@ public class GameController : MonoBehaviour
         radarPulse = transform.GetComponentInChildren<RadarPulse>();
 
         m_controller = GetComponent<CharacterController>();
+
+        isLightActivate = true;
+        isSonarActivate = true;
     }
     void Update()
     {
@@ -200,6 +203,7 @@ public class GameController : MonoBehaviour
     {
         if (isInputActivate)
         {
+            //Vector3 worldPos = FindObjectOfType<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
             worldPos.z = lightObject.transform.position.z;
 
