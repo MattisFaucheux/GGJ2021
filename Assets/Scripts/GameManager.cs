@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -95,21 +96,21 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("SwitchExterior"))
-        {
-            if (pState == PlayerState.SUBMARINE)
-            {
-                pState = PlayerState.POD;
-                SpawnPod();
-                submarineController.SetIsInputActivate(false);
-            }
-            else if (playerObject && Vector3.Distance(submarine.transform.position, playerObject.transform.position) < distanceToEnterInSubmarine && pState == PlayerState.POD)
-            {
-                pState = PlayerState.SUBMARINE;
-                DispawnPlayer();
-                submarineController.SetIsInputActivate(true);
-            }
-        }
+        //if (pState == PlayerState.POD && playerObject && Input.GetButtonDown("SwitchExterior"))
+        //{
+        //    if (Vector3.Distance(submarine.transform.position, playerObject.transform.position) < distanceToEnterInSubmarine)
+        //    {
+        //        pState = PlayerState.INTERIOR;
+        //        submarineInterior.gameObject.SetActive(true);
+        //        submarineController.SetIsInputActivate(false);
+        //        subMarineModel.gameObject.SetActive(false);
+
+
+        //        //pState = PlayerState.SUBMARINE;
+        //        DispawnPlayer();
+        //        //submarineController.SetIsInputActivate(true);
+        //    }
+        //}
     }
 
     void SpawnPod()
@@ -130,7 +131,8 @@ public class GameManager : MonoBehaviour
 
     void DispawnPlayer()
     {
-        DestroyImmediate(playerObject);
+        playerObject.SetActive(false);
+        Destroy(playerObject, 0.1f);
         playerObject = null;
         playerObjectController = null;
 
@@ -151,4 +153,29 @@ public class GameManager : MonoBehaviour
             Camera.transform.position = playerObject.transform.position + initialCameraPos;
         }
     }
+
+    public void SwitchToPod()
+    {
+        submarineInterior.gameObject.SetActive(false);
+        subMarineModel.gameObject.SetActive(true);
+        submarineController.SetIsInputActivate(false);
+        SpawnPod();
+        pState = PlayerState.POD;
+    }
+
+    public void EnterInSubmarine()
+    {
+        pState = PlayerState.INTERIOR;
+        submarineInterior.gameObject.SetActive(true);
+        submarineController.SetIsInputActivate(false);
+        subMarineModel.gameObject.SetActive(false);
+        DispawnPlayer();
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+    }
+
+
 }

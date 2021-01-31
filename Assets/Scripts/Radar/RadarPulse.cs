@@ -82,7 +82,7 @@ public class RadarPulse : MonoBehaviour
                 if (!alreadyPingedColliderList.Contains(hit.collider))
                 {
                     alreadyPingedColliderList.Add(hit.collider);
-                    Transform radarPingTransform = Instantiate(pfRadarPing, new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, hit.collider.transform.position.z - (hit.collider.transform.localScale.z / 2) - 0.1f), Quaternion.identity);
+                    Transform radarPingTransform = Instantiate(pfRadarPing, new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, hit.collider.transform.position.z - (hit.collider.transform.localScale.z / 2) - 1.1f), Quaternion.identity);
                     RadarPing radarPing = radarPingTransform.GetComponent<RadarPing>();
                     if (radarPing)
                     {

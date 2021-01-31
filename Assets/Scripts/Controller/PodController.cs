@@ -41,6 +41,11 @@ public class PodController : GameController
 
     public override void TakeDamage()
     {
-        Debug.Log("petite2Chokola");
+        damageTake += 1;
+        if (damageTake == damageToGameOver)
+        {
+            GameManager gm = FindObjectOfType<GameManager>();
+            gm.GameOver();
+        }
     }
 }

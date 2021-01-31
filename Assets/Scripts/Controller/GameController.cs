@@ -30,24 +30,6 @@ public class GameController : MonoBehaviour
     protected float m_actualSpeedV;
     #endregion
 
-
-    //#region Rotation
-    //[Header("Rotation Speed Settings")]
-    //[SerializeField]
-    //[Tooltip("Speed in Unit/Sec")]
-    //private float m_maxRSpeed = 10;
-
-    //[SerializeField]
-    //[Tooltip("Speed in Unit/Sec")]
-    //private float m_minRSpeed = -10, m_rAcceleration = 2, m_rDeceleration = 2, m_rInputAcceleration = 2, m_rInputDeceleration = 2;
-
-    //[SerializeField]
-    //private float m_maxZRotation = 60, m_minZRotation = -60;
-
-    //private float m_rotateSpeed;
-    //#endregion
-
-
     #region Movement
     protected CharacterController m_controller;
     protected Vector3 startPosition;
@@ -62,16 +44,28 @@ public class GameController : MonoBehaviour
     public Light spotLight;
     public GameObject spotLightTrigger;
 
+
+    public int damageFirstBreak = 2;
+    public int damageSecondBreak = 4;
+    public int damageToGameOver = 6;
+
+    protected int damageTake = 0;
+    private bool isLightActivate = true;
+    private bool isSonarActivate = true;
+
+    public RepairLightZoneInt RepairLightTriggerInterior;
+    public RepaiRadarZoneInt RepairSonarTriggerInterior;
+
+    //public RepairLightZoneExt RepairLightTriggerExterior;
+    //public RepairRadarZoneExt RepairSonarTriggerExterior;
+
+
     void Start()
     {
         startPosition = transform.position;
         lightObject = transform.Find("RotativeLight");
 
         radarPulse = transform.GetComponentInChildren<RadarPulse>();
-        //if (radarPulse)
-        //{
-        //    radarPulse.SetIsActivate(isInputActivate);
-        //}
 
         m_controller = GetComponent<CharacterController>();
     }
@@ -88,7 +82,7 @@ public class GameController : MonoBehaviour
 
     void UpdateSonarPulse()
     {
-        if (Input.GetButtonDown("Sonar") && radarPulse && isInputActivate)
+        if (Input.GetButtonDown("Sonar") && radarPulse && isInputActivate && isSonarActivate)
         {
             radarPulse.ActivateRadar();
         }
@@ -187,66 +181,9 @@ public class GameController : MonoBehaviour
         }
     }
 
-    //private void RotateController()
-    //{
-    //    float zRotation = transform.eulerAngles.z;
-
-    //    if (zRotation > m_maxZRotation && zRotation < 360 + m_minZRotation)
-    //    {
-    //        m_rotateSpeed = 0;
-
-    //        if (zRotation < 180)
-    //        {
-    //            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, m_maxZRotation - 0.1f);
-    //        }
-    //        else
-    //        {
-    //            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 360 + m_minZRotation + 0.1f);
-    //        }
-    //    }
-    //    else if (Input.GetAxis("Vertical") > 0 && isInputActivate)
-    //    {
-    //        if (m_rotateSpeed >= m_maxRSpeed)
-    //        {
-    //            m_rotateSpeed = m_maxRSpeed;
-    //        }
-    //        else
-    //        {
-    //            m_rotateSpeed += m_rInputAcceleration * Time.deltaTime;
-    //        }
-    //    }
-    //    else if (Input.GetAxis("Vertical") < 0 && m_rotateSpeed > m_minRSpeed && isInputActivate)
-    //    {
-    //        m_rotateSpeed -= m_rInputDeceleration * Time.deltaTime;
-    //    }
-    //    else
-    //    {
-    //        if (m_rotateSpeed < 0)
-    //        {
-    //            m_rotateSpeed += m_rAcceleration * Time.deltaTime;
-    //        }
-
-    //        if (m_rotateSpeed > 0)
-    //        {
-    //            m_rotateSpeed -= m_rDeceleration * Time.deltaTime;
-    //        }
-
-    //        if (m_rotateSpeed > -0.5f && m_rotateSpeed < 0.5f)
-    //        {
-    //            m_rotateSpeed = 0;
-    //        }
-    //    }
-
-    //    transform.RotateAround(transform.position, new Vector3(0, 0, 1), m_rotateSpeed * Time.deltaTime);
-    //}
-
     public void SetIsInputActivate(bool isActivate)
     {
         this.isInputActivate = isActivate;
-        //if (radarPulse)
-        //{
-        //    radarPulse.SetIsActivate(isInputActivate);
-        //}
     }
 
     void UpdateLightRotation()
@@ -263,7 +200,7 @@ public class GameController : MonoBehaviour
 
     void GetLightSwitch()
     {
-        if (Input.GetButtonDown("LightSwitch") && isInputActivate)
+        if (Input.GetButtonDown("LightSwitch") && isInputActivate && isLightActivate)
         {
             spotLight.gameObject.SetActive(!spotLight.gameObject.activeSelf);
             spotLightTrigger.SetActive(spotLight.gameObject.activeSelf);
@@ -272,6 +209,79 @@ public class GameController : MonoBehaviour
 
     public virtual void TakeDamage()
     {
-        Debug.Log("getOOF");
+        damageTake += 1;
+
+        if (damageTake == damageFirstBreak || damageTake == damageSecondBreak)
+        {
+            if (isLightActivate && isSonarActivate)
+            {
+                if (Random.Range(-1, 1) >= 0)
+                {
+                    BreakLight();
+                }
+                else
+                {
+                    BreakSonar();
+                }
+            }
+            else if(isLightActivate)
+            {
+                BreakLight();
+            }
+            else
+            {
+                BreakSonar();
+            }
+
+        }
+        else if (damageTake == damageToGameOver)
+        {
+            GameManager gm = FindObjectOfType<GameManager>();
+            gm.GameOver();
+        }
+
+    }
+
+    public void RepairLight()
+    {
+        isLightActivate = true;
+
+        spotLight.gameObject.SetActive(true);
+        spotLightTrigger.SetActive(true);
+
+        RepairLightTriggerInterior.SetActive(false);
+
+    }
+
+    public void RepairSonar()
+    {
+        isSonarActivate = true;
+
+        RepairSonarTriggerInterior.SetActive(false);
+    }
+
+    void BreakLight()
+    {
+        isLightActivate = false;
+        spotLight.gameObject.SetActive(false);
+        spotLightTrigger.SetActive(false);
+
+        RepairLightTriggerInterior.SetActive(true);
+    }
+
+    void BreakSonar()
+    {
+        isSonarActivate = false;
+
+        RepairSonarTriggerInterior.SetActive(true);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetButtonDown("Interaction") && other.tag.Equals("PodPlayer"))
+        {
+            GameManager gm = FindObjectOfType<GameManager>();
+            gm.EnterInSubmarine();
+        }
     }
 }

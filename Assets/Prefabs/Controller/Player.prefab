@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 3076686508771851869}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: PodPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,6 +287,11 @@ MonoBehaviour:
   bubbleParticle: {fileID: 5112902186243686812}
   spotLight: {fileID: 8832169886666865463}
   spotLightTrigger: {fileID: 7251073263213296008}
+  damageFirstBreak: 0
+  damageSecondBreak: 0
+  damageToGameOver: 2
+  RepairLightTriggerInterior: {fileID: 0}
+  RepairSonarTriggerInterior: {fileID: 0}
   isMaxPodDistance: 1
   MaxPodDistance: 20
 --- !u!1 &2015689741095519138
