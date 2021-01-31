@@ -39,6 +39,10 @@ public class GameController : MonoBehaviour
     private RadarPulse radarPulse;
 
     private Transform lightObject;
+    public float LightRotationMaxAngle = 165;
+    public float LightRotationMinAngle = 145;
+
+
     public ParticleSystem bubbleParticle;
 
     public Light spotLight;
@@ -57,9 +61,12 @@ public class GameController : MonoBehaviour
     public RepairLightZoneInt RepairLightTriggerInterior;
     public RepaiRadarZoneInt RepairSonarTriggerInterior;
 
+    private GameManager gameManager;
+
 
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         startPosition = transform.position;
         lightObject = transform.Find("RotativeLight");
 
@@ -74,7 +81,7 @@ public class GameController : MonoBehaviour
         UpdateLightRotation();
         GetLightSwitch();
         UpdateSonarPulse();
-        //RotateController();
+        UpdateModelRotation();
         MoveForward();
     }
 
@@ -164,6 +171,11 @@ public class GameController : MonoBehaviour
         }
     }
 
+    protected virtual void UpdateModelRotation()
+    {
+        gameManager.RotateSubmarineModel(m_actualSpeedV);
+    }
+
     protected virtual void MoveForward()
     {
         Vector3 incomingMovement = ((transform.right * m_actualSpeedH) + (transform.up * m_actualSpeedV)) *Time.deltaTime;
@@ -234,8 +246,7 @@ public class GameController : MonoBehaviour
         }
         else if (damageTake == damageToGameOver)
         {
-            GameManager gm = FindObjectOfType<GameManager>();
-            gm.GameOver();
+            gameManager.GameOver();
         }
 
     }
@@ -250,6 +261,11 @@ public class GameController : MonoBehaviour
         RepairLightTriggerInterior.SetActive(false);
         damageTake -= damageRestoreOnRepair;
 
+        RepairLightTriggerInterior.transform.Find("WarningLamp").gameObject.SetActive(false);
+        RepairLightTriggerInterior.transform.Find("Flare").gameObject.SetActive(false);
+
+        transform.Find("Warning").gameObject.SetActive(false);
+
     }
 
     public void RepairSonar()
@@ -258,6 +274,11 @@ public class GameController : MonoBehaviour
 
         RepairSonarTriggerInterior.SetActive(false);
         damageTake -= damageRestoreOnRepair;
+
+        RepairSonarTriggerInterior.transform.Find("WarningLamp").gameObject.SetActive(false);
+        RepairSonarTriggerInterior.transform.Find("Flare").gameObject.SetActive(false);
+
+        transform.Find("Warning").gameObject.SetActive(false);
     }
 
     void BreakLight()
@@ -266,7 +287,12 @@ public class GameController : MonoBehaviour
         spotLight.gameObject.SetActive(false);
         spotLightTrigger.SetActive(false);
 
+
         RepairLightTriggerInterior.SetActive(true);
+        RepairLightTriggerInterior.transform.Find("WarningLamp").gameObject.SetActive(true);
+        RepairLightTriggerInterior.transform.Find("Flare").gameObject.SetActive(true);
+
+        transform.Find("Warning").gameObject.SetActive(true);
     }
 
     void BreakSonar()
@@ -274,14 +300,17 @@ public class GameController : MonoBehaviour
         isSonarActivate = false;
 
         RepairSonarTriggerInterior.SetActive(true);
+        RepairSonarTriggerInterior.transform.Find("WarningLamp").gameObject.SetActive(true);
+        RepairSonarTriggerInterior.transform.Find("Flare").gameObject.SetActive(true);
+
+        transform.Find("Warning").gameObject.SetActive(true);
     }
 
     private void OnTriggerStay(Collider other)
     {
         if (Input.GetButtonDown("Interaction") && other.tag.Equals("PodPlayer"))
         {
-            GameManager gm = FindObjectOfType<GameManager>();
-            gm.EnterInSubmarine();
+            gameManager.EnterInSubmarine();
         }
     }
 }

@@ -15,6 +15,14 @@ public class GameManager : MonoBehaviour
     private Transform podAttached;
     private Transform subMarineModel;
 
+
+    public float SubmarineUpRotationZ = -100;
+    public float SubmarineClassicRotationZ = -90;
+    public float SubmarineDownRotationZ = -80;
+    public float SubmarineRotationSpeedZ = 2;
+
+
+
     public GameObject playerPrefab;
     private GameObject playerObject;
     private GameController playerObjectController;
@@ -88,37 +96,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetButtonDown("Interaction") && pState == PlayerState.SUBMARINE && canSwitch)
         {
             ExitDrivingMode();
-            //if (submarineInterior.gameObject.activeInHierarchy && pState == PlayerState.INTERIOR)
-            //{
-            //    submarineInterior.gameObject.SetActive(false);
-            //    pState = PlayerState.SUBMARINE;
-            //    submarineController.SetIsInputActivate(true);
-            //    subMarineModel.gameObject.SetActive(true);
-            //}
-            //else if(pState == PlayerState.SUBMARINE)
-            //{
-            //    submarineInterior.gameObject.SetActive(true);
-            //    pState = PlayerState.INTERIOR;
-            //    submarineController.SetIsInputActivate(false);
-            //    subMarineModel.gameObject.SetActive(false);
-            //}
         }
-
-        //if (pState == PlayerState.POD && playerObject && Input.GetButtonDown("SwitchExterior"))
-        //{
-        //    if (Vector3.Distance(submarine.transform.position, playerObject.transform.position) < distanceToEnterInSubmarine)
-        //    {
-        //        pState = PlayerState.INTERIOR;
-        //        submarineInterior.gameObject.SetActive(true);
-        //        submarineController.SetIsInputActivate(false);
-        //        subMarineModel.gameObject.SetActive(false);
-
-
-        //        //pState = PlayerState.SUBMARINE;
-        //        DispawnPlayer();
-        //        //submarineController.SetIsInputActivate(true);
-        //    }
-        //}
     }
 
     void SpawnPod()
@@ -221,8 +199,32 @@ public class GameManager : MonoBehaviour
     IEnumerator CanSwitchMode()
     {
         canSwitch = false;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.1f);
         canSwitch = true;
+    }
+
+    public void RotateSubmarineModel(float VerticalSpeed)
+    {
+        Transform aileron = subMarineModel.Find("Aileron");
+
+        Vector3 currentAngle = aileron.localEulerAngles;
+
+        float targetAngle = 0;
+
+        if (VerticalSpeed > 0)
+        {
+            targetAngle = SubmarineUpRotationZ;
+        }
+        else if (VerticalSpeed < 0)
+        {
+            targetAngle = SubmarineDownRotationZ;
+        }
+        else if (VerticalSpeed == 0)
+        {
+            targetAngle = SubmarineClassicRotationZ;
+        }
+
+        aileron.localEulerAngles = new Vector3(Mathf.LerpAngle(currentAngle.x, targetAngle, Time.deltaTime * SubmarineRotationSpeedZ), currentAngle.y, currentAngle.z);
     }
 
 

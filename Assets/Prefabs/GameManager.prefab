@@ -45,6 +45,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Camera: {fileID: 0}
   submarine: {fileID: 0}
+  SubmarineUpRotationZ: -110
+  SubmarineClassicRotationZ: -90
+  SubmarineDownRotationZ: -70
+  SubmarineRotationSpeedZ: 2
   playerPrefab: {fileID: 1919884367965999962, guid: dc62d9375d7649a408dc05dbf5a6adbb,
     type: 3}
   distanceToEnterInSubmarine: 3
+  madnessIncreaseValue: 1

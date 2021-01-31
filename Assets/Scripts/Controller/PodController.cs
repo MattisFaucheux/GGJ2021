@@ -9,7 +9,8 @@ public class PodController : GameController
 
     protected override void MoveForward()
     {
-        Vector3 incomingMovement = ((transform.right * m_actualSpeedH) + (transform.up * m_actualSpeedV)) * Time.deltaTime;
+        Vector3 incomingMovement =
+            ((transform.right * m_actualSpeedH) + (transform.up * m_actualSpeedV)) * Time.deltaTime;
 
         if (isMaxPodDistance)
         {
@@ -47,5 +48,10 @@ public class PodController : GameController
             GameManager gm = FindObjectOfType<GameManager>();
             gm.GameOver();
         }
+    }
+
+    protected override void UpdateModelRotation()
+    {
+        //Do nothing
     }
 }
