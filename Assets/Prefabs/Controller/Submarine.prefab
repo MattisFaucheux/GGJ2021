@@ -4513,8 +4513,6 @@ MonoBehaviour:
   m_decelerationV: 7.5
   m_inputAccelerationV: 2.5
   m_inputDecelerationV: 2.5
-  LightRotationMaxAngle: 165
-  LightRotationMinAngle: 180
   bubbleParticle: {fileID: 2865625545459449730}
   spotLight: {fileID: 2112206689}
   spotLightTrigger: {fileID: 2079106763}
@@ -4524,6 +4522,15 @@ MonoBehaviour:
   damageRestoreOnRepair: 2
   RepairLightTriggerInterior: {fileID: 3867641884337930108}
   RepairSonarTriggerInterior: {fileID: 3867641884882520864}
+  motorSound: {fileID: 8300000, guid: 90e5cd4f9a13fd142be42542b0fcff7a, type: 3}
+  podActivationSound: {fileID: 0}
+  interiorSubmarineSound: {fileID: 8300000, guid: 82ecdff8f0b340548b3c91bb56e1d6d6,
+    type: 3}
+  breakSound: {fileID: 0}
+  repairSound: {fileID: 0}
+  activateSonarSound: {fileID: 0}
+  switchLightSound: {fileID: 0}
+  audioVolume: 0.25
 --- !u!135 &3517990242594044457
 SphereCollider:
   m_ObjectHideFlags: 0

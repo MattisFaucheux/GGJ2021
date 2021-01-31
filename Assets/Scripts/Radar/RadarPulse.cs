@@ -121,4 +121,9 @@ public class RadarPulse : MonoBehaviour
         yield return new WaitForSeconds(reloadTime);
         canActivate = true;
     }
+
+    public bool CanActivate()
+    {
+        return canActivate;
+    }
 }
