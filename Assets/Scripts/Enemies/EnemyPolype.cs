@@ -30,12 +30,17 @@ public class EnemyPolype : MonoBehaviour
 
     private Vector3 initialPos;
 
+    public AudioClip attackSound;
+    public float soundVolume = 1;
+    private AudioSource audioSource;
+
 
     // Start is called before the first frame update
     void Start()
     {
         initialPos = transform.position;
         characterController = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -128,6 +133,14 @@ public class EnemyPolype : MonoBehaviour
         if (!isIlluminated)
         {
             return;
+        }
+
+        if (actualState != EnemyState.ATTACK)
+        {
+            if (audioSource)
+            {
+                audioSource.PlayOneShot(attackSound, soundVolume);
+            }
         }
 
         MooveDirection = dirToAttack;
