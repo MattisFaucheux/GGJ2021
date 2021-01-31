@@ -9,11 +9,26 @@ public class ResumeMenu : MonoBehaviour
 
     private float basicTimeScale;
 
+    public bool isGm = true;
+
     void Start()
     {
         resumeMenu.SetActive(false);
         basicTimeScale = Time.timeScale;
     }
+
+    void Update()
+    {
+        if (!isGm)
+        {
+            if (Input.GetButton("Escape"))
+            {
+                PauseGame();
+            }
+        }
+    }
+
+    
 
     public void ResumeFunction()
     {
