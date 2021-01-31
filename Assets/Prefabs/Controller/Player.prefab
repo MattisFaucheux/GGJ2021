@@ -295,12 +295,13 @@ MonoBehaviour:
   RepairLightTriggerInterior: {fileID: 0}
   RepairSonarTriggerInterior: {fileID: 0}
   motorSound: {fileID: 8300000, guid: 90e5cd4f9a13fd142be42542b0fcff7a, type: 3}
-  podActivationSound: {fileID: 0}
-  interiorSubmarineSound: {fileID: 0}
-  breakSound: {fileID: 0}
-  repairSound: {fileID: 0}
+  podActivationSound: {fileID: 8300000, guid: 3cddfed995bd9f549a4581b99502d8d2, type: 3}
+  interiorSubmarineSound: {fileID: 8300000, guid: 82ecdff8f0b340548b3c91bb56e1d6d6,
+    type: 3}
+  breakSound: {fileID: 8300000, guid: 0b4997a08a9381943bff10f4a52d0ab6, type: 3}
+  repairSound: {fileID: 8300000, guid: 08dae47c463cccc4289f9b69b8d19f18, type: 3}
   activateSonarSound: {fileID: 8300000, guid: e45472b404956d84381ec673e21e7e88, type: 3}
-  switchLightSound: {fileID: 0}
+  switchLightSound: {fileID: 8300000, guid: c5f91c8de61476c41aba417d93416a1b, type: 3}
   audioVolume: 0.25
   isMaxPodDistance: 1
   MaxPodDistance: 20
