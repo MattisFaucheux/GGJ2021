@@ -11,7 +11,6 @@ public class ExitZone : MonoBehaviour
         if (Input.GetButtonDown("Interaction") && other.tag.Equals("InteriorPlayer"))
         {
             GameManager gm = FindObjectOfType<GameManager>();
-            Debug.Log("a");
             gm.SwitchToPod();
         }
     }
