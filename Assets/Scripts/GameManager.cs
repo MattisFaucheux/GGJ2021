@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
     private float madnessPercentage = 0;
     public float madnessIncreaseValue = 1;
 
+    private bool maxMadnessReached = false;
+
+    private bool canSwitch = true;
+
     //private bool isUsingSubMarine = true;
 
     enum PlayerState
@@ -81,22 +85,23 @@ public class GameManager : MonoBehaviour
 
     void CheckChangeController()
     {
-        if (Input.GetButtonDown("SwitchInterior") && submarineInterior)
+        if (Input.GetButtonDown("Interaction") && pState == PlayerState.SUBMARINE && canSwitch)
         {
-            if (submarineInterior.gameObject.activeInHierarchy && pState == PlayerState.INTERIOR)
-            {
-                submarineInterior.gameObject.SetActive(false);
-                pState = PlayerState.SUBMARINE;
-                submarineController.SetIsInputActivate(true);
-                subMarineModel.gameObject.SetActive(true);
-            }
-            else if(pState == PlayerState.SUBMARINE)
-            {
-                submarineInterior.gameObject.SetActive(true);
-                pState = PlayerState.INTERIOR;
-                submarineController.SetIsInputActivate(false);
-                subMarineModel.gameObject.SetActive(false);
-            }
+            ExitDrivingMode();
+            //if (submarineInterior.gameObject.activeInHierarchy && pState == PlayerState.INTERIOR)
+            //{
+            //    submarineInterior.gameObject.SetActive(false);
+            //    pState = PlayerState.SUBMARINE;
+            //    submarineController.SetIsInputActivate(true);
+            //    subMarineModel.gameObject.SetActive(true);
+            //}
+            //else if(pState == PlayerState.SUBMARINE)
+            //{
+            //    submarineInterior.gameObject.SetActive(true);
+            //    pState = PlayerState.INTERIOR;
+            //    submarineController.SetIsInputActivate(false);
+            //    subMarineModel.gameObject.SetActive(false);
+            //}
         }
 
         //if (pState == PlayerState.POD && playerObject && Input.GetButtonDown("SwitchExterior"))
@@ -175,6 +180,23 @@ public class GameManager : MonoBehaviour
         DispawnPlayer();
     }
 
+    public void EnterDrivingMode()
+    {
+        submarineInterior.gameObject.SetActive(false);
+        pState = PlayerState.SUBMARINE;
+        submarineController.SetIsInputActivate(true);
+        subMarineModel.gameObject.SetActive(true);
+        StartCoroutine(CanSwitchMode());
+    }
+
+    void ExitDrivingMode()
+    {
+        pState = PlayerState.INTERIOR;
+        submarineInterior.gameObject.SetActive(true);
+        submarineController.SetIsInputActivate(false);
+        subMarineModel.gameObject.SetActive(false);
+    }
+
     public void GameOver()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
@@ -184,7 +206,7 @@ public class GameManager : MonoBehaviour
     {
         madnessPercentage += madnessIncreaseValue * Time.deltaTime;
 
-        if (madnessPercentage >= 100)
+        if (madnessPercentage >= 100 && !maxMadnessReached)
         {
             OnMaxMadness();
         }
@@ -193,6 +215,14 @@ public class GameManager : MonoBehaviour
     void OnMaxMadness()
     {
         Debug.Log("Mais ti es fou!");
+        maxMadnessReached = true;
+    }
+
+    IEnumerator CanSwitchMode()
+    {
+        canSwitch = false;
+        yield return new WaitForSeconds(0.25f);
+        canSwitch = true;
     }
 
 
