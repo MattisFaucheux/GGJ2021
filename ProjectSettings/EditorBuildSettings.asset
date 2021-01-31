@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/samplescene.unity
-    guid: cbfe36cfddfde964d9dfce63a355d5dd
+    path: Assets/Scenes/MainMenu.unity
+    guid: d7961834b4fda834d8f982a3a6dc0f31
+  - enabled: 1
+    path: Assets/Scenes/GP/MattisTest.unity
+    guid: c9fb2768bc43260409ba4eb3b1910390
   - enabled: 1
     path: Assets/Scenes/GP/TestGP.unity
     guid: 5eedd4abea30bf8458a7b377ae4aa3d3

@@ -5,13 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SwitchScene : MonoBehaviour
 {
-    public string sceneNameToLoad;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Equals("PodPlayer") || other.gameObject.tag.Equals("PodPlayer"))
+        if (other.gameObject.tag.Equals("Player") || other.gameObject.tag.Equals("PodPlayer"))
         {
-            SceneManager.LoadScene(sceneNameToLoad, LoadSceneMode.Single);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
         }
     }
 }

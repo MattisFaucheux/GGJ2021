@@ -89,6 +89,11 @@ public class GameManager : MonoBehaviour
     {
         CheckChangeController();
         UpdateCameraPosition();
+
+        if(Input.GetButton("Escape"))
+        {
+            FindObjectOfType<ResumeMenu>().PauseGame();
+        }
     }
 
     void CheckChangeController()
