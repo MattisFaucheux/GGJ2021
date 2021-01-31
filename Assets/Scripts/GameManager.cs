@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
 
     void SpawnPod()
     {
+        submarineController.PlayPodActivationSound();
         playerObject = Instantiate(playerPrefab, submarine.transform.position + new Vector3(-1, submarine.transform.localScale.y / 2 - 2.5f, 0), new Quaternion(0, 0, 0, 0));
         playerObjectController = playerObject.GetComponent<GameController>();
 
@@ -123,6 +124,7 @@ public class GameManager : MonoBehaviour
 
     void DispawnPlayer()
     {
+        submarineController.PlayPodActivationSound();
         playerObject.SetActive(false);
         Destroy(playerObject, 0.1f);
         playerObject = null;
@@ -151,6 +153,7 @@ public class GameManager : MonoBehaviour
 
     public void SwitchToPod()
     {
+        submarineController.StopInteriorSound();
         submarineInterior.gameObject.SetActive(false);
         subMarineModel.gameObject.SetActive(true);
         submarineController.SetIsInputActivate(false);
@@ -160,6 +163,7 @@ public class GameManager : MonoBehaviour
 
     public void EnterInSubmarine()
     {
+        submarineController.StartInteriorSound();
         pState = PlayerState.INTERIOR;
         submarineInterior.gameObject.SetActive(true);
         submarineController.SetIsInputActivate(false);
@@ -169,6 +173,7 @@ public class GameManager : MonoBehaviour
 
     public void EnterDrivingMode()
     {
+        submarineController.StopInteriorSound();
         submarineInterior.gameObject.SetActive(false);
         pState = PlayerState.SUBMARINE;
         submarineController.SetIsInputActivate(true);
@@ -178,6 +183,7 @@ public class GameManager : MonoBehaviour
 
     void ExitDrivingMode()
     {
+        submarineController.StartInteriorSound();
         pState = PlayerState.INTERIOR;
         submarineInterior.gameObject.SetActive(true);
         submarineController.SetIsInputActivate(false);

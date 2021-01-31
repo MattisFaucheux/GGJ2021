@@ -64,6 +64,19 @@ public class GameController : MonoBehaviour
     private GameManager gameManager;
 
 
+
+    public AudioClip motorSound;
+    public AudioClip podActivationSound;
+    public AudioClip interiorSubmarineSound;
+    public AudioClip breakSound;
+    public AudioClip repairSound;
+    public AudioClip activateSonarSound;
+    public AudioClip switchLightSound;
+
+    protected AudioSource audioSource;
+    public float audioVolume;
+
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -76,6 +89,8 @@ public class GameController : MonoBehaviour
 
         isLightActivate = true;
         isSonarActivate = true;
+
+        audioSource = GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -92,7 +107,16 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetButtonDown("Sonar") && radarPulse && isInputActivate && isSonarActivate)
         {
-            radarPulse.ActivateRadar();
+            if (radarPulse.CanActivate())
+            {
+                radarPulse.ActivateRadar();
+                if (audioSource && activateSonarSound)
+                {
+                    audioSource.PlayOneShot(activateSonarSound, audioVolume);
+                }
+            }
+
+
         }
     }
 
@@ -187,10 +211,21 @@ public class GameController : MonoBehaviour
         if (incomingMovement != Vector3.zero && !bubbleParticle.isPlaying)
         {
             bubbleParticle.Play();
+
+            audioSource.clip = motorSound;
+            audioSource.loop = false;
+            audioSource.volume = audioVolume;
+            audioSource.Play();
         }
         else if (incomingMovement == Vector3.zero && !bubbleParticle.isStopped)
         {
             bubbleParticle.Stop();
+
+            if (audioSource.clip == motorSound)
+            {
+                audioSource.Stop();
+                audioSource.clip = null;
+            }
         }
     }
 
@@ -218,6 +253,11 @@ public class GameController : MonoBehaviour
         {
             spotLight.gameObject.SetActive(!spotLight.gameObject.activeSelf);
             spotLightTrigger.SetActive(spotLight.gameObject.activeSelf);
+
+            if (audioSource && switchLightSound)
+            {
+                audioSource.PlayOneShot(switchLightSound, audioVolume);
+            }
         }
     }
 
@@ -270,6 +310,11 @@ public class GameController : MonoBehaviour
 
         transform.Find("Warning").gameObject.SetActive(false);
 
+        if (audioSource && repairSound)
+        {
+            audioSource.PlayOneShot(repairSound, audioVolume);
+        }
+
     }
 
     public void RepairSonar()
@@ -283,6 +328,11 @@ public class GameController : MonoBehaviour
         RepairSonarTriggerInterior.transform.Find("Flare").gameObject.SetActive(false);
 
         transform.Find("Warning").gameObject.SetActive(false);
+
+        if (audioSource && repairSound)
+        {
+            audioSource.PlayOneShot(repairSound, audioVolume);
+        }
     }
 
     void BreakLight()
@@ -297,6 +347,11 @@ public class GameController : MonoBehaviour
         RepairLightTriggerInterior.transform.Find("Flare").gameObject.SetActive(true);
 
         transform.Find("Warning").gameObject.SetActive(true);
+
+        if (audioSource && breakSound)
+        {
+            audioSource.PlayOneShot(breakSound, audioVolume);
+        }
     }
 
     void BreakSonar()
@@ -308,6 +363,11 @@ public class GameController : MonoBehaviour
         RepairSonarTriggerInterior.transform.Find("Flare").gameObject.SetActive(true);
 
         transform.Find("Warning").gameObject.SetActive(true);
+
+        if (audioSource && breakSound)
+        {
+            audioSource.PlayOneShot(breakSound, audioVolume);
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -317,4 +377,28 @@ public class GameController : MonoBehaviour
             gameManager.EnterInSubmarine();
         }
     }
+
+    public void StartInteriorSound()
+    {
+        audioSource.clip = interiorSubmarineSound;
+        audioSource.loop = false;
+        audioSource.volume = audioVolume;
+        audioSource.Play();
+    }
+
+    public void StopInteriorSound()
+    {
+        audioSource.Stop();
+        audioSource.clip = null;
+    }
+
+    public void PlayPodActivationSound()
+    {
+        if (audioSource && podActivationSound)
+        {
+            audioSource.PlayOneShot(podActivationSound, audioVolume);
+        }
+    }
+
+
 }

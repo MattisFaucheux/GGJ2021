@@ -41,6 +41,10 @@ public class EnemyProfond : MonoBehaviour
 
     private Vector3 MooveDirection;
 
+    public AudioClip attackSound;
+    public float soundVolume = 1;
+    private AudioSource audioSource;
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +52,7 @@ public class EnemyProfond : MonoBehaviour
         initialPos = transform.position;
         characterController = GetComponent<CharacterController>();
         UpdateControllerDetection();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -177,6 +182,14 @@ public class EnemyProfond : MonoBehaviour
         if (actualState == EnemyState.ESCAPE || !canAttack)
         {
             return;
+        }
+
+        if(actualState != EnemyState.ATTACK)
+        {
+            if (audioSource && attackSound)
+            {
+                audioSource.PlayOneShot(attackSound, soundVolume);
+            }
         }
 
         MooveDirection = dirToAttack;
