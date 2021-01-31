@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public Text nameText;
-    public Text dialogueText;
+    public TMPro.TextMeshProUGUI nameText;
+    public TMPro.TextMeshProUGUI dialogueText;
     public float timeBetweenLetter;
 
     private Queue<string> sentences;
