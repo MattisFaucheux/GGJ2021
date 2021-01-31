@@ -12,7 +12,7 @@ public class FinalCine : MonoBehaviour
     {
         if(other.CompareTag("PodPlayer"))
         {
-            
+            StartCoroutine(Final());
         }
     }
 
