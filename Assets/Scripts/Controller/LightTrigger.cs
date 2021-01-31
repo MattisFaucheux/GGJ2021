@@ -14,13 +14,13 @@ public class LightTrigger : MonoBehaviour
             dir.z = 0;
             dir.Normalize();
             enemyP.SetIsEscaping(dir);
-            GameManager gm = FindObjectOfType<GameManager>();
-            gm.IncreaseMadness();
+            //GameManager gm = FindObjectOfType<GameManager>();
+            //gm.IncreaseMadness();
         }
         else if (enemyP2)
         {
-            GameManager gm = FindObjectOfType<GameManager>();
-            gm.IncreaseMadness();
+            //GameManager gm = FindObjectOfType<GameManager>();
+            //gm.IncreaseMadness();
         }
     }
 

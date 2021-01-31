@@ -275,7 +275,7 @@ MonoBehaviour:
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.111
+    m_Value: 0.176
     min: 0
     max: 1
   scatter:
@@ -285,7 +285,7 @@ MonoBehaviour:
     max: 1
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.80871433, g: 0.794, b: 1, a: 1}
+    m_Value: {r: 0.97350824, g: 1, b: 0.5372549, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -321,13 +321,13 @@ MonoBehaviour:
   m_AdvancedMode: 0
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0.7627208, y: 0.81229675, z: 1, w: -0.12108131}
+    m_Value: {x: 1, y: 0.9399199, z: 0.9369364, w: 0.13032146}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 0.79126924, y: 1, z: 0.8017943, w: 0.07060901}
+    m_Value: {x: 0.9359301, y: 1, z: 0.8432083, w: 0.122737594}
   highlights:
     m_OverrideState: 1
-    m_Value: {x: 0.99634326, y: 0.82290864, z: 1, w: 0.12356577}
+    m_Value: {x: 0.8053386, y: 1, z: 0.8399187, w: 0.29732776}
   shadowsStart:
     m_OverrideState: 0
     m_Value: 0
@@ -366,7 +366,7 @@ MonoBehaviour:
     m_Value: 0
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.08625881, g: 0.1616823, b: 0.5529412, a: 1}
+    m_Value: {r: 0.17178358, g: 0.08627449, b: 0.5529412, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
@@ -377,8 +377,8 @@ MonoBehaviour:
     showAlpha: 0
     showEyeDropper: 1
   maxFogDistance:
-    m_OverrideState: 0
-    m_Value: 5000
+    m_OverrideState: 1
+    m_Value: 2906.8
     min: 0
   mipFogMaxMip:
     m_OverrideState: 0
@@ -395,19 +395,19 @@ MonoBehaviour:
     min: 0
   baseHeight:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 7.8
   maximumHeight:
     m_OverrideState: 1
-    m_Value: 500
+    m_Value: 22.92
   albedo:
     m_OverrideState: 1
-    m_Value: {r: 0.681, g: 0.79796654, b: 1, a: 1}
+    m_Value: {r: 1, g: 0.8240483, b: 0.69411767, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 300
+    m_Value: 200
     min: 1
   enableVolumetricFog:
     m_OverrideState: 1
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Intro3
+  m_Name: Intro4
   m_EditorClassIdentifier: 
   components:
   - {fileID: -4573501227009696095}
@@ -481,7 +481,7 @@ MonoBehaviour:
     m_Value: 1
   fixedExposure:
     m_OverrideState: 1
-    m_Value: -2
+    m_Value: -3
   compensation:
     m_OverrideState: 0
     m_Value: 0
@@ -550,7 +550,7 @@ MonoBehaviour:
     m_Value: {fileID: 0}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.135
+    m_Value: 0.25
     min: 0
     max: 1
   m_MaxSamples:
