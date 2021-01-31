@@ -6,6 +6,8 @@ TagManager:
   tags:
   - InteriorPlayer
   - PodPlayer
+  - Fire
+  - Manager
   layers:
   - Default
   - TransparentFX

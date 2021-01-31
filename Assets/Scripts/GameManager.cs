@@ -38,14 +38,14 @@ public class GameManager : MonoBehaviour
 
     //private bool isUsingSubMarine = true;
 
-    enum PlayerState
+    public enum PlayerState
     {
         SUBMARINE,
         POD,
         INTERIOR
     }
 
-    private PlayerState pState = PlayerState.SUBMARINE;
+    public PlayerState pState = PlayerState.SUBMARINE;
 
     // Start is called before the first frame update
     void Start()
