@@ -27,10 +27,18 @@ public class PodController : GameController
         if (incomingMovement != Vector3.zero && !bubbleParticle.isPlaying)
         {
             bubbleParticle.Play();
+
+            audioSource.clip = motorSound;
+            audioSource.loop = false;
+            audioSource.volume = audioVolume;
+            audioSource.Play();
         }
         else if (incomingMovement == Vector3.zero && !bubbleParticle.isStopped)
         {
             bubbleParticle.Stop();
+
+            audioSource.Stop();
+            audioSource.clip = null;
         }
 
     }

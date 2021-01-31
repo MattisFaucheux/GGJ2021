@@ -137,7 +137,7 @@ public class EnemyPolype : MonoBehaviour
 
         if (actualState != EnemyState.ATTACK)
         {
-            if (audioSource)
+            if (audioSource && attackSound)
             {
                 audioSource.PlayOneShot(attackSound, soundVolume);
             }
