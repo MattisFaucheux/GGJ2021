@@ -4527,9 +4527,9 @@ MonoBehaviour:
   interiorSubmarineSound: {fileID: 8300000, guid: 82ecdff8f0b340548b3c91bb56e1d6d6,
     type: 3}
   breakSound: {fileID: 0}
-  repairSound: {fileID: 0}
-  activateSonarSound: {fileID: 0}
-  switchLightSound: {fileID: 0}
+  repairSound: {fileID: 8300000, guid: 08dae47c463cccc4289f9b69b8d19f18, type: 3}
+  activateSonarSound: {fileID: 8300000, guid: e45472b404956d84381ec673e21e7e88, type: 3}
+  switchLightSound: {fileID: 8300000, guid: c5f91c8de61476c41aba417d93416a1b, type: 3}
   audioVolume: 0.25
 --- !u!135 &3517990242594044457
 SphereCollider:
