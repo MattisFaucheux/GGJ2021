@@ -275,7 +275,7 @@ PrefabInstance:
     - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -364,7 +364,7 @@ PrefabInstance:
     - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -453,7 +453,7 @@ PrefabInstance:
     - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -542,7 +542,7 @@ PrefabInstance:
     - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -1067,7 +1067,7 @@ PrefabInstance:
     - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -1249,7 +1249,7 @@ PrefabInstance:
     - target: {fileID: 2337625555581885096, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2337625555581885097, guid: 223de85d989d07040ac62e3974b7940c,
         type: 3}
@@ -1684,7 +1684,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-3674
+  m_Name: pb_Mesh-11678
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2235,6 +2235,11 @@ PrefabInstance:
       propertyPath: submarine
       value: 
       objectReference: {fileID: 817205167114431794}
+    - target: {fileID: 8619476672258139475, guid: 5ab11c18be9c84445bfc2ff3c606b6d4,
+        type: 3}
+      propertyPath: madnessIncreaseValue
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ab11c18be9c84445bfc2ff3c606b6d4, type: 3}
 --- !u!1001 &5857021835117623515

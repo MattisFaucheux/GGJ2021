@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
 
     public float distanceToEnterInSubmarine = 3.0f;
 
+    private float madnessPercentage = 0;
+    public float madnessIncreaseValue = 1;
+
     //private bool isUsingSubMarine = true;
 
     enum PlayerState
@@ -175,6 +178,21 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+    }
+
+    public void IncreaseMadness()
+    {
+        madnessPercentage += madnessIncreaseValue * Time.deltaTime;
+
+        if (madnessPercentage >= 100)
+        {
+            OnMaxMadness();
+        }
+    }
+
+    void OnMaxMadness()
+    {
+        Debug.Log("Mais ti es fou!");
     }
 
 

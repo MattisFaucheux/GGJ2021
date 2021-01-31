@@ -50,14 +50,12 @@ public class GameController : MonoBehaviour
     public int damageToGameOver = 6;
 
     protected int damageTake = 0;
+    public int damageRestoreOnRepair = 2;
     private bool isLightActivate = true;
     private bool isSonarActivate = true;
 
     public RepairLightZoneInt RepairLightTriggerInterior;
     public RepaiRadarZoneInt RepairSonarTriggerInterior;
-
-    //public RepairLightZoneExt RepairLightTriggerExterior;
-    //public RepairRadarZoneExt RepairSonarTriggerExterior;
 
 
     void Start()
@@ -250,6 +248,7 @@ public class GameController : MonoBehaviour
         spotLightTrigger.SetActive(true);
 
         RepairLightTriggerInterior.SetActive(false);
+        damageTake -= damageRestoreOnRepair;
 
     }
 
@@ -258,6 +257,7 @@ public class GameController : MonoBehaviour
         isSonarActivate = true;
 
         RepairSonarTriggerInterior.SetActive(false);
+        damageTake -= damageRestoreOnRepair;
     }
 
     void BreakLight()
