@@ -299,7 +299,7 @@ MonoBehaviour:
   interiorSubmarineSound: {fileID: 0}
   breakSound: {fileID: 0}
   repairSound: {fileID: 0}
-  activateSonarSound: {fileID: 0}
+  activateSonarSound: {fileID: 8300000, guid: e45472b404956d84381ec673e21e7e88, type: 3}
   switchLightSound: {fileID: 0}
   audioVolume: 0.25
   isMaxPodDistance: 1
